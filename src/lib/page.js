@@ -76,10 +76,13 @@ import { emit, listen } from "./actions.js";
     pathEl.textContent = section === "projects" && active >= 0 ? base + "/" + names[active] : base;
   }
 
+  // on a phone the open project has screens of its own under the list: bring that screen up instead
+  const stackedMq = matchMedia("(max-width: 639px)");
   function reveal() {
-    const r = browser.getBoundingClientRect();
+    const stacked = stackedMq.matches;
+    const r = (stacked ? $("#detail") : browser).getBoundingClientRect();
     if (r.top < -8 || r.top > innerHeight * 0.45) {
-      const top = parseFloat(getComputedStyle(root).scrollPaddingTop) || 60;
+      const top = stacked ? 0 : parseFloat(getComputedStyle(root).scrollPaddingTop) || 60;
       scrollTo({ top: scrollY + r.top - top, behavior: behavior() });
     }
   }
@@ -105,6 +108,7 @@ import { emit, listen } from "./actions.js";
     }
 
     if (changed) {
+      $("#detail").scrollTop = 0;
       $$("video").forEach((v) => {
         if (!projects[i].contains(v)) v.pause();
       });
@@ -216,7 +220,7 @@ import { emit, listen } from "./actions.js";
     heat.append(frag);
   }
 
-  const sections = $$("main > section");
+  const sections = $$("main > section, body > footer#contact");
   const navLinks = $$(".topnav a");
   let ticking = false;
   function spy() {
@@ -227,8 +231,9 @@ import { emit, listen } from "./actions.js";
       cur = sections[sections.length - 1].id;
     if (cur !== section) {
       section = cur;
+      const sec = $("#" + cur).dataset.sec || cur;
       navLinks.forEach((a) => {
-        if (a.dataset.sec === cur) a.setAttribute("aria-current", "true");
+        if (a.dataset.sec === sec) a.setAttribute("aria-current", "true");
         else a.removeAttribute("aria-current");
       });
       setPath();
@@ -326,7 +331,7 @@ import { emit, listen } from "./actions.js";
       case "2":
       case "3":
       case "4":
-        goSection(sections[Number(k) - 1].id);
+        goSection(["home", "projects", "about", "contact"][Number(k) - 1]);
         break;
       case "i":
         focusShell();
