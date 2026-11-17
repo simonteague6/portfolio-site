@@ -317,7 +317,11 @@ body::after {
 /* the art: the live shell is the window, cut by the frame's right edge; its prompt stays in view */
 .hero__art {
   background:
-    radial-gradient(120% 90% at 100% 0%, color-mix(in oklab, var(--ground-surface) 70%, transparent), transparent 60%),
+    radial-gradient(
+      120% 90% at 100% 0%,
+      color-mix(in oklab, var(--ground-surface) 70%, transparent),
+      transparent 60%
+    ),
     var(--ground-bg);
 }
 .hero__art > .ly-piece--main {
@@ -727,7 +731,9 @@ html:not(.js) .proj + .proj {
   /* the preview's title bar: the meta line stays pinned while the project scrolls under it, and its rule
      runs on with the list's across the window (a line in the window's own ground) */
   .browser {
-    background: linear-gradient(var(--v-line), var(--v-line)) 0 43px / 100% 1px no-repeat, var(--v-bg1);
+    background:
+      linear-gradient(var(--v-line), var(--v-line)) 0 43px / 100% 1px no-repeat,
+      var(--v-bg1);
   }
   /* the demo runs out to the window's right edge, the words keep their inset */
   .pane-detail .shot {
@@ -1711,7 +1717,6 @@ html:not(.js) .pager {
   color: var(--v-dim);
 }
 
-
 /* one track no wider than the wrap, so the close word's width never pushes the column out */
 #contact > .wrap {
   grid-template-columns: minmax(0, 1fr);
@@ -2064,7 +2069,6 @@ html[data-buttons="pill"] .btn.btn--secondary:hover {
     grid-column: span 3;
   }
 }
-
 
 /* the status line, the toast and the dialogs are terminal chrome: mono, on the window layer */
 .status,
