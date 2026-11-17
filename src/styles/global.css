@@ -1761,6 +1761,14 @@ html:not(.js) .pager {
   }
 }
 
+/* the quiet button keeps its tint and gains the strong line, so it reads as a button and not as ground */
+html[data-buttons="pill"] .btn.btn--secondary {
+  border-color: var(--line-strong);
+}
+html[data-buttons="pill"] .btn.btn--secondary:hover {
+  border-color: color-mix(in oklab, var(--ink) 35%, transparent);
+}
+
 /* ── about: the paper band (the page's one inverse ground) ── */
 /* one track no wider than the wrap: the marquee's long track must not size the column */
 .about > .wrap {
