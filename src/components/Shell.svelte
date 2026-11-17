@@ -31,6 +31,7 @@
       if (initial) initial--;
       else output.shift();
     }
+    tick().then(() => body.scrollTo({ top: body.scrollHeight }));
   }
 
   function keydown(event) {

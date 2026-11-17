@@ -5,8 +5,8 @@
   let selected = $state(0);
   let cards = $state([
     { role: 'Software Engineering Intern', company: 'Example Co. · San Antonio, TX', days: 2, status: '' },
-    { role: 'Developer Tools Intern', company: 'Placeholder Labs · Remote', days: 4, status: 'applied' },
-    { role: 'Backend Engineering Intern', company: 'Acme Corp · Austin, TX', days: 6, status: 'dismissed' },
+    { role: 'Developer Tools Intern', company: 'Sample Labs · Remote', days: 4, status: 'applied' },
+    { role: 'Backend Engineering Intern', company: 'Bramble Corp · Austin, TX', days: 6, status: 'dismissed' },
   ]);
   let buttons = [];
 
@@ -34,7 +34,7 @@
 <div class="term-body mock-psst" id="psst-mock" role="group" aria-label="Illustrative psst interface with three placeholder listings" onkeydown={keydown}>
   <p class="mp-head"><b>psst</b><span>profile: summer-2027</span><span>showing 3</span></p>
   {#each cards as card, i}
-    <button type="button" class="card" class:is-sel={selected === i} data-status={card.status}
+    <button type="button" class="card m-nolift" class:is-sel={selected === i} data-status={card.status}
       aria-pressed={selected === i} aria-label={card.role + ', ' + card.company + (card.status ? ', ' + card.status : '')}
       bind:this={buttons[i]} onclick={() => selected = i}>
       <span class="lbl"></span>

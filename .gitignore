@@ -22,3 +22,6 @@ dist/
 .astro/
 test-results/
 playwright-report/
+
+# The design skill's working folder: Chrome profile, screenshots, check reports.
+.taste-skill/

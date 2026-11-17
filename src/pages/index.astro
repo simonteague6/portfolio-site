@@ -5,17 +5,34 @@ import CommandPalette from '../components/CommandPalette.svelte';
 import '../styles/global.css';
 
 const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
+const kit = (path: string) => base + "assets/" + path;
+const featured = [
+  ["skill-shelf", "agent skills, in the terminal"],
+  ["psst", "internship listings, in the terminal"],
+  ["minimap", "indoor directions at UTSA"],
+  ["help-wanted", "a first open-source issue"],
+  ["omt", "benchmarks for Ollama models"],
+  ["aloud-tts", "offline text-to-speech"],
+  ["workout-app", "a workout tracker"],
+];
+const also = [
+  ["agent-extensions", "plugins for pi and OpenCode"],
+  ["china-website", "an offline trip board"],
+  ["jev", "a hackathon prototype"],
+];
 ---
 <!doctype html>
-<html lang="en">
+<html lang="en" data-type="software" data-radius="sharp" data-ground="sage" data-buttons="pill" data-motion>
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Simon Teague · small, finished, local-first tools</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Simon Teague: small, finished, local-first tools</title>
 <meta name="description" content="Simon Teague is a computer science sophomore at UTSA who ships small, finished tools: terminal UIs, plugins for AI coding agents, and apps he wanted to exist.">
 <meta name="author" content="Simon Teague">
-<meta name="theme-color" content="#1c1a18">
+<meta name="theme-color" content="#161513">
 <meta name="color-scheme" content="dark">
+<meta name="site-kind" content="software">
+<meta name="page-type" content="software">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Simon Teague">
 <meta property="og:description" content="CS sophomore at UTSA. Terminal UIs, plugins for AI coding agents, and other small, finished, local-first tools.">
@@ -24,69 +41,136 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Simon Teague, in monospace on a dark charcoal background, with a terminal prompt.">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href={base + "assets/favicon.svg"} type="image/svg+xml">
-<link rel="preload" href={base + "assets/fonts/jetbrains-mono-latin-var.woff2"} as="font" type="font/woff2" crossorigin>
-
-<script is:inline>document.documentElement.classList.add('js')</script>
+<link rel="icon" href={kit("favicon.svg")} type="image/svg+xml">
+<link rel="preload" href={kit("fonts/host-grotesk-latin-var.woff2")} as="font" type="font/woff2" crossorigin>
+<link rel="preload" href={kit("fonts/jetbrains-mono-latin-var.woff2")} as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href={kit("system.css")}>
+<link rel="stylesheet" href={kit("ui/cards.css")}>
+<link rel="stylesheet" href={kit("motion/motion.css")}>
+<link rel="stylesheet" href={kit("backgrounds/backgrounds.css")}>
+<link rel="stylesheet" href={kit("layout/layout.css")}>
+<link rel="stylesheet" href={kit("icons/icon.css")}>
+<style is:inline>
+:root {
+  --p-bg: #161513; --p-surface: #1f1d1a; --p-ink: #ece9e1; --p-muted: #a39d91;
+  --p-accent: #a7c79a; --p-accent-ink: #161513; --p-action: #a7c79a; --p-action-ink: #161513;
+  --p-inv-bg: #ece9e1; --p-inv-surface: #dbd8d0; --p-inv-ink: #161513; --p-inv-muted: #5e5c58;
+  --p-inv-accent: #161513; --p-inv-accent-ink: #ece9e1; --p-inv-action: #161513; --p-inv-action-ink: #ece9e1;
+  --font-display: "Host Grotesk", system-ui, sans-serif;
+  --font-text: "Host Grotesk", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  --display-weight: 500; --display-tracking: -0.035em; --display-tracking-xl: -0.04em;
+}
+</style>
+<link rel="stylesheet" href={kit("ui/base.css")}>
+<script is:inline>document.documentElement.classList.add('js','m-enter');setTimeout(()=>document.documentElement.classList.add('m-enter-done'),700)</script>
+<script is:inline src={kit("backgrounds/backgrounds.js")}></script>
+<script is:inline>document.documentElement.classList.add('mo-js');setTimeout(()=>document.documentElement.classList.add('mo-safe'),2500)</script>
+<link rel="modulepreload" href={kit("moments/moments.js")}>
+<link rel="modulepreload" href={kit("moments/lib.js")}>
+<link rel="modulepreload" href={kit("moments/marquee-row/moment.js")}>
 </head>
 <body>
-<a class="skip" href="#projects">Skip to projects</a>
+<!-- type: software (a CS student's portfolio of shipped software; the only kind that keeps a dark page and live UI)
+     deal: hero collage, nav nav-centre, close close-word, footer footer-statement, rhythm dark-band (the paper about),
+           buttons pill, mark ring, grounds none; palette the client's own via start.mjs brand, type host, radius sharp
+     moments: marquee-row (the toolbox, in about)
+     screens at 1440x900: hero 1, projects 2 (the browser window fills the second screen), about 2, close and footer 1 -->
 
-<header class="topbar">
-  <a class="brand" href="#home" aria-label="Simon Teague, home"><span class="brand-full">simon teague</span><span class="brand-short">st</span><span class="caret" aria-hidden="true"></span></a>
-  <nav class="topnav" aria-label="Sections">
-    <a href="#home" data-sec="home"><kbd aria-hidden="true">1</kbd>home</a>
-    <a href="#projects" data-sec="projects"><kbd aria-hidden="true">2</kbd>projects</a>
-    <a href="#about" data-sec="about"><kbd aria-hidden="true">3</kbd>about</a>
-    <a href="#contact" data-sec="contact"><kbd aria-hidden="true">4</kbd>contact</a>
-  </nav>
+<header class="nav nav--centre topbar">
+  <div class="wrap nav__bar">
+    <a class="skip-link skip" href="#projects">Skip to projects</a>
+    <a class="nav__logo brand" href="#home" aria-label="Simon Teague, home"><span class="mark" data-mark="ring" aria-hidden="true"></span><span>simon teague</span><span class="caret" aria-hidden="true"></span></a>
+    <nav class="nav__links topnav" aria-label="Sections">
+      <div class="nav__item"><a class="nav__link" href="#home" data-sec="home"><kbd aria-hidden="true">1</kbd>home</a></div>
+      <div class="nav__item">
+        <a class="nav__link" href="#projects" data-sec="projects"><kbd aria-hidden="true">2</kbd>projects <svg class="chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5l3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <div class="nav__menu">
+          <div class="wrap grid">
+            <div class="menu-col span-4">
+              <p class="t-label">featured</p>
+              {featured.slice(0, 4).map(([name, line]) => <a href={"#p-" + name}>{name}<span>{line}</span></a>)}
+            </div>
+            <div class="menu-col span-4">
+              <p class="t-label">&nbsp;</p>
+              {featured.slice(4).map(([name, line]) => <a href={"#p-" + name}>{name}<span>{line}</span></a>)}
+            </div>
+            <div class="menu-col span-4">
+              <p class="t-label">also</p>
+              {also.map(([name, line]) => <a href={"#p-" + name}>{name}<span>{line}</span></a>)}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="nav__item"><a class="nav__link" href="#about" data-sec="about"><kbd aria-hidden="true">3</kbd>about</a></div>
+      <div class="nav__item"><a class="nav__link" href="#contact" data-sec="contact"><kbd aria-hidden="true">4</kbd>contact</a></div>
+    </nav>
+    <div class="nav__actions">
+      <a class="btn btn--primary" href="https://github.com/simonteague6" rel="noopener me">Find me on GitHub</a>
+    </div>
+    <button class="nav__toggle" type="button" aria-expanded="false" aria-label="Menu"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M2 5h14M2 13h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
+  </div>
 </header>
 
-<main>
+<main id="top">
 
-<section class="hero" id="home" data-path="~">
-  <div class="wrap hero-grid">
-    <div class="hero-copy">
-      <p class="eyebrow"><span class="pr" aria-hidden="true">›</span> whoami</p>
-      <h1>Simon<br>Teague</h1>
-      <p class="lead">I'm a computer science sophomore at UTSA. I make small, finished, local-first tools: terminal UIs, plugins for AI coding agents, and apps I wanted to exist.</p>
-      <p class="sub">Project Advisor at Rowdy Creators, ACM at UTSA. Looking for a software internship for summer 2027.</p>
-      <ul class="keyrow" aria-label="Keyboard shortcuts">
-        <li><button type="button" data-act="next"><kbd>j</kbd><kbd>k</kbd><span>browse projects</span></button></li>
-        <li><button type="button" data-act="palette"><kbd>/</kbd><span>jump anywhere</span></button></li>
+<section class="hero hero--collage" id="home" data-path="~" data-enter aria-labelledby="hero-h">
+  <div class="wrap"><div class="hero-text grid hero__grid">
+    <div class="hero__text span-5">
+      <p class="hero__kicker"><span class="dot"></span>Simon Teague · computer science, UTSA</p>
+      <h1 id="hero-h">I make small, finished, local-first software.</h1>
+      <p class="hero__lead">Terminal UIs, plugins for AI coding agents, and apps I wanted to exist. <span>I'm a sophomore and a Project Advisor at Rowdy Creators, looking for a software internship for summer 2027.</span></p>
+      <div class="btn-row">
+        <a class="btn btn--primary" href="https://github.com/simonteague6" rel="noopener me">Find me on GitHub<svg class="m-arrow" viewBox="0 0 12 12" aria-hidden="true"><path class="m-arrow__stem" d="M1 6h8"/><path class="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5"/></svg></a>
+        <a class="btn btn--secondary" href="#projects">Browse the projects</a>
+      </div>
+      <ul class="keyrow hero__proof" aria-label="Keyboard shortcuts">
+        <li><button type="button" data-act="next"><kbd>j</kbd><kbd>k</kbd><span>browse</span></button></li>
+        <li><button type="button" data-act="palette"><kbd>/</kbd><span>jump</span></button></li>
         <li><button type="button" data-act="help"><kbd>?</kbd><span>all keys</span></button></li>
       </ul>
     </div>
-
-    <Shell client:load />
-  </div>
+    <div class="hero__art span-6 start-7">
+      <div class="ly-piece ly-piece--main">
+        <Shell client:load />
+      </div>
+      <div class="ly-piece ly-piece--note d-card" aria-hidden="true" data-ly-steps="700">
+        <div class="d-card__row"><h5>skill-shelf v0.2.0</h5><span class="d-chip" data-step data-step-at="4">on npm</span></div>
+        <div class="d-note__line" data-step><i>✓</i><span>CI and <b>Release Please</b></span></div>
+        <div class="d-note__line" data-step><i>✓</i><span>a changelog and a compatibility doc</span></div>
+        <div class="d-note__line" data-step><i>✓</i><span>tests drive it in a <b>pseudo-terminal</b></span></div>
+      </div>
+    </div>
+  </div></div>
 </section>
 
-<section class="projects" id="projects" data-path="~/projects">
+<section class="projects" id="projects" data-path="~/projects" aria-labelledby="projects-h">
   <div class="wrap">
     <header class="sec-head">
-      <p class="eyebrow"><span class="pr" aria-hidden="true">›</span> cd projects/</p>
-      <h2>Projects</h2>
-      <p class="sec-note">Ten things I shipped or helped ship. Nearly all of it was built with AI coding agents: I write the specs, split the work into issues, integrate it through pull requests and release it. Team projects are marked as team projects.</p>
+      <div>
+        <p class="eyebrow"><span class="pr" aria-hidden="true">›</span> cd projects/</p>
+        <h2 id="projects-h">Ten things I shipped or helped ship.</h2>
+      </div>
+      <p class="sec-note">Nearly all of it was built with AI coding agents: I write the specs, split the work into issues, integrate it through pull requests and release it. Team projects say so.</p>
     </header>
 
-    <div class="browser" id="browser">
+    <div class="browser fill" id="browser">
       <div class="pane pane-list">
         <div class="pane-title"><span>projects/</span><span class="count" id="pos">01/10</span></div>
         <nav aria-label="Project list">
-          <ol class="rows" id="rows">
+          <ol class="pane-rows" id="rows">
             <li class="grp" aria-hidden="true">featured <b>7</b></li>
-            <li><a class="row" href="#p-skill-shelf"><span class="n">01</span><span class="nm">skill-shelf</span><span class="tg">ts · npm</span></a></li>
-            <li><a class="row" href="#p-psst"><span class="n">02</span><span class="nm">psst</span><span class="tg">go</span></a></li>
-            <li><a class="row" href="#p-minimap"><span class="n">03</span><span class="nm">minimap</span><span class="tg">py · team</span></a></li>
-            <li><a class="row" href="#p-help-wanted"><span class="n">04</span><span class="nm">help-wanted</span><span class="tg">py · team</span></a></li>
-            <li><a class="row" href="#p-omt"><span class="n">05</span><span class="nm">omt</span><span class="tg">go</span></a></li>
-            <li><a class="row" href="#p-aloud-tts"><span class="n">06</span><span class="nm">aloud-tts</span><span class="tg">py · macos</span></a></li>
-            <li><a class="row" href="#p-workout-app"><span class="n">07</span><span class="nm">workout-app</span><span class="tg">react native</span></a></li>
+            <li><a class="row" href="#p-skill-shelf"><span class="n">01</span><span class="nm">skill-shelf</span><span class="tg">ts · npm</span><span class="ds">agent skills on your machine, in a TUI</span></a></li>
+            <li><a class="row" href="#p-psst"><span class="n">02</span><span class="nm">psst</span><span class="tg">go</span><span class="ds">internship listings in the terminal</span></a></li>
+            <li><a class="row" href="#p-minimap"><span class="n">03</span><span class="nm">minimap</span><span class="tg">py · team</span><span class="ds">indoor maps for hallways and stairs</span></a></li>
+            <li><a class="row" href="#p-help-wanted"><span class="n">04</span><span class="nm">help-wanted</span><span class="tg">py · team</span><span class="ds">a first open-source issue that fits you</span></a></li>
+            <li><a class="row" href="#p-omt"><span class="n">05</span><span class="nm">omt</span><span class="tg">go</span><span class="ds">benchmark Ollama models, CLI or TUI</span></a></li>
+            <li><a class="row" href="#p-aloud-tts"><span class="n">06</span><span class="nm">aloud-tts</span><span class="tg">py · macos</span><span class="ds">offline text-to-speech in the menu bar</span></a></li>
+            <li><a class="row" href="#p-workout-app"><span class="n">07</span><span class="nm">workout-app</span><span class="tg">react native</span><span class="ds">an open-source workout tracker</span></a></li>
             <li class="grp grp-2" aria-hidden="true">also <b>3</b></li>
-            <li><a class="row" href="#p-agent-extensions"><span class="n">08</span><span class="nm">agent-extensions</span><span class="tg">ts</span></a></li>
-            <li><a class="row" href="#p-china-website"><span class="n">09</span><span class="nm">china-website</span><span class="tg">pwa · live</span></a></li>
-            <li><a class="row" href="#p-jev"><span class="n">10</span><span class="nm">jev</span><span class="tg">team</span></a></li>
+            <li><a class="row" href="#p-agent-extensions"><span class="n">08</span><span class="nm">agent-extensions</span><span class="tg">ts</span><span class="ds">three plugins for pi and OpenCode</span></a></li>
+            <li><a class="row" href="#p-china-website"><span class="n">09</span><span class="nm">china-website</span><span class="tg">pwa · live</span><span class="ds">an offline trip board for two weeks</span></a></li>
+            <li><a class="row" href="#p-jev"><span class="n">10</span><span class="nm">jev</span><span class="tg">team</span><span class="ds">a scam-awareness prototype, RowdyHacks XII</span></a></li>
           </ol>
         </nav>
         <div class="pane-foot" aria-hidden="true"><span><kbd>j</kbd><kbd>k</kbd> move</span><span><kbd>o</kbd> open</span><span><kbd>y</kbd> copy</span></div>
@@ -124,8 +208,8 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
             </dl>
           </div>
           <p class="links">
-            <a href="https://github.com/simonteague6/skill-shelf" rel="noopener"><kbd aria-hidden="true">o</kbd>GitHub</a>
-            <a href="https://www.npmjs.com/package/@simonteague6/skill-shelf" rel="noopener">npm</a>
+            <a class="btn btn--primary" href="https://github.com/simonteague6/skill-shelf" rel="noopener"><kbd aria-hidden="true">o</kbd>GitHub</a>
+            <a class="btn btn--secondary" href="https://www.npmjs.com/package/@simonteague6/skill-shelf" rel="noopener">npm</a>
           </p>
         </article>
 
@@ -138,9 +222,9 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
           <figure class="shot">
             <div class="term">
               <div class="term-bar" aria-hidden="true"><i></i><i></i><i></i><span>psst</span></div>
-               <PsstDemo client:load />
+              <PsstDemo client:load />
             </div>
-            <figcaption>An illustrative mock-up built from the README, not a screenshot. The listings are placeholders. Pick a card and try <kbd>a</kbd>, <kbd>d</kbd> and <kbd>u</kbd>.</figcaption>
+            <figcaption>A mock-up built from the README, with made-up listings. Pick a card and try <kbd>a</kbd>, <kbd>d</kbd> and <kbd>u</kbd>.</figcaption>
           </figure>
           <div class="cols">
             <div class="prose">
@@ -189,7 +273,7 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
                 </svg>
               </div>
             </div>
-            <figcaption>A diagram of the idea, not the real map. Rooms, hallway <q>spine</q> nodes, staircases and elevators form a graph; directions are a shortest path through it.</figcaption>
+            <figcaption>A diagram of the idea, simpler than the real map. Rooms, hallway <q>spine</q> nodes, staircases and elevators form a graph; directions are a shortest path through it.</figcaption>
           </figure>
           <div class="cols">
             <div class="prose">
@@ -205,7 +289,7 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
             </dl>
           </div>
           <p class="links">
-            <a href="https://github.com/RC-MiniMap/minimap" rel="noopener"><kbd aria-hidden="true">o</kbd>GitHub</a>
+            <a class="btn btn--primary" href="https://github.com/RC-MiniMap/minimap" rel="noopener"><kbd aria-hidden="true">o</kbd>GitHub</a>
           </p>
         </article>
 
@@ -230,7 +314,7 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
           <div class="cols">
             <div class="prose">
               <p>One command and a few optional questions. You get a short list of real GitHub issues with a plain explanation of why each fits and how to start, written in your own language. Gemma 4 runs locally through Ollama and makes the decisions at each of the six stages.</p>
-              <p>The eligibility rules are code, not vibes: an issue must be open, unassigned, updated in the last six months and have no linked pull request. If too few pass, you get fewer recommendations and a reason.</p>
+              <p>The eligibility rules are code: an issue must be open, unassigned, updated in the last six months and have no linked pull request. If too few pass, you get fewer recommendations and a reason.</p>
               <p>Built in one day at Hacktoberfest Hack Day San Antonio 2026 by Nathan Davies, Samuel Saylor, Fredy Mata and me. I authored the main implementation pull request and 47 of the 66 commits. The repository lives on Samuel's account.</p>
               <p class="yank"><code>pip install help-wanted</code><button type="button" data-copy="pip install help-wanted">copy</button></p>
             </div>
@@ -242,8 +326,8 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
             </dl>
           </div>
           <p class="links">
-            <a href="https://github.com/SamuelSaylor/Help-Wanted" rel="noopener"><kbd aria-hidden="true">o</kbd>GitHub</a>
-            <a href="https://pypi.org/project/help-wanted/" rel="noopener">PyPI</a>
+            <a class="btn btn--primary" href="https://github.com/SamuelSaylor/Help-Wanted" rel="noopener"><kbd aria-hidden="true">o</kbd>GitHub</a>
+            <a class="btn btn--secondary" href="https://pypi.org/project/help-wanted/" rel="noopener">PyPI</a>
           </p>
         </article>
 
@@ -267,7 +351,7 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
                 <p class="mo-bar"><i></i></p>
               </div>
             </div>
-            <figcaption>An illustrative layout, not a screenshot. The numbers are blank on purpose: I didn't run a benchmark for this page, so I'm not printing one.</figcaption>
+            <figcaption>A mock-up of the layout. The numbers are blank on purpose: I ran no benchmark for this page, so there is nothing to print.</figcaption>
           </figure>
           <div class="cols">
             <div class="prose">
@@ -281,7 +365,7 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
             </dl>
           </div>
           <p class="links">
-            <a href="https://github.com/simonteague6/ollama-model-tester" rel="noopener"><kbd aria-hidden="true">o</kbd>GitHub</a>
+            <a class="btn btn--primary" href="https://github.com/simonteague6/ollama-model-tester" rel="noopener"><kbd aria-hidden="true">o</kbd>GitHub</a>
           </p>
         </article>
 
@@ -299,7 +383,7 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
                 <p class="ma-keys"><kbd>ctrl</kbd><kbd>opt</kbd><kbd>S</kbd><span class="wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></p>
               </div>
             </div>
-            <figcaption>An illustration of the flow, not a screenshot.</figcaption>
+            <figcaption>An illustration of the flow, drawn for this page.</figcaption>
           </figure>
           <div class="cols">
             <div class="prose">
@@ -310,11 +394,11 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
               <div><dt>role</dt><dd>solo</dd></div>
               <div><dt>stack</dt><dd>Python 3.12, MLX, rumps, pynput, uv</dd></div>
               <div><dt>licence</dt><dd>MIT</dd></div>
-              <div><dt>fine print</dt><dd>The model is a download of about 330 MB. The README says the first word plays about a second after warmup; that is my own figure, not an independent measurement.</dd></div>
+              <div><dt>fine print</dt><dd>The model is a download of about 330 MB. The README says the first word plays about a second after warmup; that is my own figure, and nobody has measured it independently.</dd></div>
             </dl>
           </div>
           <p class="links">
-            <a href="https://github.com/simonteague6/aloud-tts" rel="noopener"><kbd aria-hidden="true">o</kbd>GitHub</a>
+            <a class="btn btn--primary" href="https://github.com/simonteague6/aloud-tts" rel="noopener"><kbd aria-hidden="true">o</kbd>GitHub</a>
           </p>
         </article>
 
@@ -348,11 +432,11 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
                 </div>
               </div>
             </div>
-            <figcaption>An illustration of what it tracks, not a screenshot of the app.</figcaption>
+            <figcaption>An illustration of what it tracks, drawn for this page.</figcaption>
           </figure>
           <div class="cols">
             <div class="prose">
-              <p>Sessions can be free-flow or follow a routine. Sets have types (warm-up, drop set, failure), there is a rest timer, and routines live in folders. A calendar heatmap and progress charts show what you actually did, and your data can be imported and exported.</p>
+              <p>Sessions can be free-flow or follow a routine. Sets have types (warm-up, drop set, failure), there is a rest timer, and routines live in folders. A calendar heatmap and progress charts show what you did, and your data can be imported and exported.</p>
               <p>It can also import a routine with an LLM that is given an exercise-search tool, including multi-day routines, with a review screen at the end.</p>
               <p>It is the largest of my own codebases and the only one here without a README. I know.</p>
             </div>
@@ -364,7 +448,7 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
             </dl>
           </div>
           <p class="links">
-            <a href="https://github.com/simonteague6/workout-app" rel="noopener"><kbd aria-hidden="true">o</kbd>GitHub</a>
+            <a class="btn btn--primary" href="https://github.com/simonteague6/workout-app" rel="noopener"><kbd aria-hidden="true">o</kbd>GitHub</a>
           </p>
         </article>
 
@@ -382,7 +466,7 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
             <li>
               <a href="https://github.com/simonteague6/pi-obsidian-preview" rel="noopener">pi-obsidian-preview</a>
               <span class="aside"><a href="https://www.npmjs.com/package/pi-obsidian-preview" rel="noopener">npm · v1.2.1</a></span>
-              <p><code>/preview</code> writes the last agent reply to an Obsidian vault and opens it there, where Mermaid, LaTeX and callouts render properly. No tests, no CI. It is a small piece of glue.</p>
+              <p><code>/preview</code> writes the last agent reply to an Obsidian vault and opens it there, where Mermaid, LaTeX and callouts render properly. It has no tests or CI. It is a small piece of glue.</p>
             </li>
             <li>
               <a href="https://github.com/simonteague6/opencode-copy-code" rel="noopener">opencode-copy-code</a>
@@ -407,7 +491,7 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
           </blockquote>
           <div class="cols">
             <div class="prose">
-              <p>A loose inspiration board rather than an itinerary: idea cards for each city, filter pills, and the day-by-day logistics. It is a PWA with a service worker, so it works without signal, and it has no logins.</p>
+              <p>A loose inspiration board with no fixed itinerary: idea cards for each city, filter pills, and the day-by-day logistics. It is a PWA with a service worker, so it works without signal, and it has no logins.</p>
               <p>New content goes in through a small Node CLI that my AI agent drives. Vanilla HTML, CSS and JS, with no build step.</p>
             </div>
             <dl class="facts">
@@ -417,8 +501,8 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
             </dl>
           </div>
           <p class="links">
-            <a href="https://china.simonteague.xyz" rel="noopener"><kbd aria-hidden="true">o</kbd>china.simonteague.xyz</a>
-            <a href="https://github.com/simonteague6/china-website" rel="noopener">GitHub</a>
+            <a class="btn btn--primary" href="https://china.simonteague.xyz" rel="noopener"><kbd aria-hidden="true">o</kbd>Live site</a>
+            <a class="btn btn--secondary" href="https://github.com/simonteague6/china-website" rel="noopener">GitHub</a>
           </p>
         </article>
 
@@ -441,7 +525,7 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
             </dl>
           </div>
           <p class="links">
-            <a href="https://github.com/RowdyCreators/Jev-Scam-Detector" rel="noopener"><kbd aria-hidden="true">o</kbd>GitHub</a>
+            <a class="btn btn--primary" href="https://github.com/RowdyCreators/Jev-Scam-Detector" rel="noopener"><kbd aria-hidden="true">o</kbd>GitHub</a>
           </p>
         </article>
 
@@ -454,29 +538,49 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
   </div>
 </section>
 
-<section class="about" id="about" data-path="~/about">
-  <div class="wrap about-grid">
-    <figure class="portrait">
-      <img src={base + "assets/simon-portrait.jpg"} width="800" height="1000" loading="lazy" alt="Simon Teague, smiling, in a sage green knit polo against a pale grey background.">
-      <figcaption><span>simon-portrait.jpg</span><span>utsa · class of 2029</span></figcaption>
+<section class="about ground-inverse" id="about" data-path="~/about" aria-labelledby="about-h">
+  <div class="wrap">
+  <div class="grid about-grid">
+    <header class="sec-head">
+      <div>
+        <p class="eyebrow"><span class="pr" aria-hidden="true">›</span> cat about.md</p>
+        <h2 id="about-h">I like software that is small, finished and local.</h2>
+      </div>
+    </header>
+    <figure class="portrait span-4">
+      <img src={kit("simon-portrait.jpg")} width="800" height="1000" loading="lazy" alt="Simon Teague, smiling, in a sage green knit polo against a pale grey background.">
     </figure>
-    <div class="about-copy">
-      <p class="eyebrow"><span class="pr" aria-hidden="true">›</span> cat about.md</p>
-      <h2>About</h2>
-      <p class="serif-lead">I'm Simon. I study computer science at the University of Texas at San Antonio, class of 2029, and I spend most of my free time making tools.</p>
-      <p>I like software that is small, finished and local: no accounts, no API keys where I can avoid them, and a key binding for everything. Most of what I make starts as something I wanted for myself or my friends, like a trip board that works on a train or a way to see which agent skills I had installed.</p>
+    <div class="about-copy span-7 start-6">
+      <p class="about-lead">I'm Simon. I study computer science at the University of Texas at San Antonio, class of 2029, and I spend most of my free time making tools.</p>
+      <p>No accounts, no API keys where I can avoid them, and a key binding for everything. Most of what I make starts as something I wanted for myself or my friends, like a trip board that works on a train or a way to see which agent skills I had installed.</p>
+      <div class="about-how">
+        <h3>How I build software with AI agents</h3>
+        <p>Almost everything on this page was built with AI coding agents, and I'd rather say so than have you guess. My part is deciding what to build, writing the requirements and specs, breaking them into issues, running agents in separate git worktrees, integrating the results through pull requests and CI, and getting the thing released. I did not type every line and I won't claim I did.</p>
+      </div>
+    </div>
+  </div>
+  </div>
+</section>
 
-      <h3>How the work gets made</h3>
-      <p>Almost everything on this page was built with AI coding agents, and I'd rather say so than have you guess. My part is deciding what to build, writing the requirements and specs, breaking them into issues, running agents in separate git worktrees, integrating the results through pull requests and CI, and getting the thing released. I did not type every line and I won't claim I did.</p>
-
-      <h3>Rowdy Creators</h3>
-      <p>I'm a Project Advisor for web development and Python at Rowdy Creators, part of ACM at UTSA. On MiniMap I led the weekly standups and pull-request reviews, wrote 34 issues and coordinated 38 closed pull requests. This semester I lead the Virtual Record Store sessions, which teach HTTP, FastAPI basics and the branch, commit, pull request, review loop. I split its MVP into 22 beginner-sized issues. Those are authored, not completed.</p>
-      <p>I also wrote the club's <a href="https://simonteague6.github.io/rc-setup-guide/" rel="noopener">setup guide</a> and a <a href="https://simonteague6.github.io/rc-setup-guide/first-pr.html" rel="noopener">first pull request walkthrough</a> for new members.</p>
-
-      <h3>Home lab</h3>
-      <p>A repurposed HP Z640 workstation running Ubuntu in my house: 30 containers across 14 Compose projects when I last counted, in late October 2026, on a three-disk RAID 5 array. It is one machine, not a cluster, and RAID is not a backup.</p>
-
-      <h3>Toolbox</h3>
+<section class="about about-more ground-inverse" id="about-more" data-path="~/about" data-sec="about" aria-label="Club work, home lab and tools">
+  <div class="wrap">
+  <div class="group about-rest">
+    <div class="about-cols">
+      <div>
+        <h3>Rowdy Creators</h3>
+        <p>I'm a Project Advisor for web development and Python at Rowdy Creators, part of ACM at UTSA. On MiniMap I led the weekly standups and pull-request reviews, wrote 34 issues and coordinated 38 closed pull requests. This semester I lead the Virtual Record Store sessions, which teach HTTP, FastAPI basics and the branch, commit, pull request, review loop. I split its MVP into 22 beginner-sized issues. That number counts issues written; the work on them is ongoing.</p>
+        <p>I also wrote the club's <a href="https://simonteague6.github.io/rc-setup-guide/" rel="noopener">setup guide</a> and a <a href="https://simonteague6.github.io/rc-setup-guide/first-pr.html" rel="noopener">first pull request walkthrough</a> for new members.</p>
+      </div>
+      <div>
+        <h3>Home lab services</h3>
+        <p>A repurposed HP Z640 workstation running Ubuntu in my house: 30 containers across 14 Compose projects when I last counted, in late October 2026, on a three-disk RAID 5 array. It is a single machine, and RAID is no backup.</p>
+      </div>
+    </div>
+    <div class="toolbox-band">
+      <h3>Software I work with</h3>
+      <div data-moment="marquee-row" data-edge-free data-moment-opts='{"speed": 32, "gap": 56}'>
+        <ul class="mo-mq__track"><li>Python</li><li>Go</li><li>Java</li><li>JavaScript</li><li>C</li><li>Bash</li><li>Flask</li><li>FastAPI</li><li>NetworkX</li><li>Astro</li><li>Docker</li><li>Neovim</li></ul>
+      </div>
       <dl class="toolbox">
         <div><dt>languages</dt><dd>Python, Go, Java, JavaScript, C, Bash. TypeScript in the AI-assisted projects.</dd></div>
         <div><dt>frameworks</dt><dd>Flask, FastAPI, NetworkX, Astro. React on one team project.</dd></div>
@@ -485,25 +589,40 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
       </dl>
     </div>
   </div>
-</section>
-
-<section class="contact" id="contact" data-path="~/contact">
-  <div class="wrap">
-    <p class="eyebrow"><span class="pr" aria-hidden="true">›</span> open</p>
-    <h2>Contact</h2>
-    <p class="sec-note">I'm looking for a software engineering internship for summer 2027. There is no contact form. GitHub is where I actually am.</p>
-    <ul class="opens">
-      <li><a href="https://github.com/simonteague6" rel="noopener me"><span class="pr" aria-hidden="true">›</span><span class="o-cmd">open</span><span class="o-url">github.com/<b>simonteague6</b></span></a></li>
-      <li><a href="https://www.npmjs.com/~simonteague6" rel="noopener me"><span class="pr" aria-hidden="true">›</span><span class="o-cmd">open</span><span class="o-url">npmjs.com/<b>~simonteague6</b></span></a></li>
-    </ul>
   </div>
-  <footer class="foot wrap">
-    <p>Astro, Svelte islands and Vite+. No tracking, no cookies.</p>
-    <p>Built with an AI coding agent, like most of what's on it.</p>
-  </footer>
 </section>
 
 </main>
+
+<footer class="footer closing footer--statement" id="contact" data-path="~/contact" aria-labelledby="close-h">
+  <div class="wrap">
+    <div class="closing__cta close--word">
+      <div class="section-head--split">
+        <div>
+          <p class="eyebrow"><span class="pr" aria-hidden="true">›</span> open github</p>
+          <h2 id="close-h">Looking for a summer 2027 internship.</h2>
+          <p class="t-lead">There is no contact form. GitHub is where I work in public.</p>
+        </div>
+        <a class="btn btn--primary" href="https://github.com/simonteague6" rel="noopener me">Find me on GitHub<svg class="m-arrow" viewBox="0 0 12 12" aria-hidden="true"><path class="m-arrow__stem" d="M1 6h8"/><path class="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5"/></svg></a>
+      </div>
+      <p class="close__word" aria-hidden="true">simon teague<span class="caret"></span></p>
+    </div>
+    <div class="closing__links">
+      <div class="grid">
+        <div class="span-6 stack-4">
+          <a class="nav__logo" href="#home"><span class="mark" data-mark="ring" aria-hidden="true"></span>simon teague</a>
+          <p class="footer__lede">CS sophomore at UTSA. Terminal UIs, agent plugins and other small, finished tools.</p>
+        </div>
+        <div class="span-3 footer__col"><h3>Sections</h3><ul><li><a href="#projects">Projects</a></li><li><a href="#about">About</a></li><li><a href="#home">Shell</a></li></ul></div>
+        <div class="span-3 footer__col"><h3>Elsewhere</h3><ul><li><a href="https://github.com/simonteague6" rel="noopener me">GitHub</a></li><li><a href="https://www.npmjs.com/~simonteague6" rel="noopener me">npm</a></li></ul></div>
+      </div>
+      <div class="footer__legal">
+        <span>&copy; 2026 Simon Teague</span>
+        <span>Astro, Svelte islands and Vite+, built with an AI coding agent. No tracking or cookies.</span>
+      </div>
+    </div>
+  </div>
+</footer>
 
 <div class="status" id="status">
   <span class="mode" id="mode">NORMAL</span>
@@ -544,6 +663,9 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
   <p class="dlg-foot">Everything here also works with a mouse or a thumb. The keys are just faster.</p>
 </dialog>
 
+<script is:inline type="module" src={kit("system.js")}></script>
+<script is:inline type="module" src={kit("motion/motion.js")}></script>
+<script is:inline type="module" src={kit("layout/layout.js")}></script>
 <script>import "../lib/page.js";</script>
 </body>
 </html>

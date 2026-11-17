@@ -149,7 +149,7 @@ test.describe("psst mock", () => {
     );
     await expect(cards.nth(1)).toHaveAttribute(
       "aria-label",
-      "Developer Tools Intern, Placeholder Labs · Remote, applied",
+      "Developer Tools Intern, Sample Labs · Remote, applied",
     );
     await page.keyboard.press("d");
     await expect(cards.nth(0)).toHaveAttribute("data-status", "dismissed");
@@ -315,6 +315,25 @@ test.describe("sections", () => {
     await page.keyboard.press("g");
     await expect(page.locator("#path")).toHaveText("~");
   });
+
+  test("the second about screen keeps about current", async ({ page }) => {
+    await open(page);
+    await page.evaluate(() => document.querySelector("#about-more")!.scrollIntoView());
+    await expect(page.locator("#path")).toHaveText("~/about");
+    await expect(page.locator(".topnav a[aria-current]")).toHaveAttribute("data-sec", "about");
+  });
+});
+
+test.describe("phone project browser", () => {
+  test("tapping a row brings the open project into view", async ({ page, isMobile }) => {
+    test.skip(!isMobile, "the stacked phone layout");
+    await open(page);
+    await page.locator("#rows a").nth(3).click();
+    await expect(active(page)).toHaveAttribute("data-name", "help-wanted");
+    const detailTop = () =>
+      page.evaluate(() => Math.abs(document.querySelector("#detail")!.getBoundingClientRect().top));
+    await expect.poll(detailTop).toBeLessThan(4);
+  });
 });
 
 test.describe("without javascript", () => {
@@ -335,7 +354,9 @@ test.describe("visual", () => {
 
   test("about and contact", async ({ page }) => {
     await open(page);
-    for (const id of ["about", "contact"]) {
+    // the fixed bars would land at a different spot in each capture of a section taller than the screen
+    await page.addStyleTag({ content: ".topbar, .status { visibility: hidden !important; }" });
+    for (const id of ["about", "about-more", "contact"]) {
       await expect(page.locator("#" + id)).toHaveScreenshot(id + ".png");
     }
   });
