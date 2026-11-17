@@ -1716,6 +1716,25 @@ html:not(.js) .pager {
 #contact > .wrap {
   grid-template-columns: minmax(0, 1fr);
 }
+/* the close is one screen when it fits; on a short window it grows past the screen rather than set the
+   name over the links (the kit only lets a section grow from 640 to 1279) */
+footer#contact {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  min-height: 100vh;
+  min-height: 100svh;
+}
+footer#contact > .wrap {
+  flex: 1 0 auto;
+  height: auto;
+  grid-template-rows: 1fr auto;
+  /* the name's own box carries room under its descenders, so the links need less above them */
+  row-gap: var(--s-5);
+}
+footer#contact .closing__cta {
+  min-height: auto;
+}
 
 /* the projects window takes two screens; a narrow screen lets it grow with its project */
 #projects {
@@ -1963,7 +1982,8 @@ html[data-buttons="pill"] .btn.btn--secondary:hover {
   color: var(--ground-muted);
 }
 .close__word {
-  font-size: clamp(56px, 10.6vw, 154px);
+  /* the width sets the name, and a short window sets it smaller so the close stays near one screen */
+  font-size: clamp(56px, min(10.6vw, 17svh), 154px);
   letter-spacing: -0.055em;
   padding-block: 0.16em 0.14em;
   color: var(--ground-ink);
