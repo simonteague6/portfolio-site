@@ -18,3 +18,7 @@ research/
 *.swo
 node_modules/
 *.log
+dist/
+.astro/
+test-results/
+playwright-report/

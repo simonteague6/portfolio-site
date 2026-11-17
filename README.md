@@ -1,48 +1,74 @@
-<img src="assets/favicon.svg" width="48" height="48" alt="">
+<img src="public/assets/favicon.svg" width="48" height="48" alt="">
 
 # Simon Teague · portfolio
 
-My personal portfolio: projects, background, and contact links. Built with static HTML, CSS, and vanilla JavaScript—no framework, dependencies, or build step.
+My personal portfolio, built with Astro, Svelte 5 islands and Vite+. The build produces a static site with locally hosted fonts and media, no analytics, and no cookies.
 
-![Portfolio social preview](assets/og.png)
+![Portfolio social preview](public/assets/og.png)
 
 ## Run locally
 
-Clone the repository and serve it with Python 3:
+Install [Vite+](https://viteplus.dev/guide/), then run:
 
 ```sh
-git clone https://github.com/simonteague6/portfolio-site.git
-cd portfolio-site
-python3 -m http.server 8000 --bind 127.0.0.1
+vp install
+vp run dev
 ```
 
-Open [localhost:8000](http://localhost:8000). Stop the server with `Ctrl+C`.
+Open `http://localhost:4321/portfolio-site/`.
+
+Astro owns the build pipeline. Use `vp run build`, not `vp build`, to run it through Vite+.
+
+```sh
+vp check
+vp run typecheck
+vp run build
+vp run preview
+```
 
 ## Project structure
 
 ```text
-index.html       Page content, project details, and metadata
-css/style.css    Layout, typography, responsive styles, and animations
-js/main.js       Project browser, keyboard shortcuts, and terminal interactions
-assets/         Images, demo videos, favicon, and locally hosted fonts
+src/pages/index.astro              Page content, project details and metadata
+src/components/Shell.svelte        Terminal input, history and output
+src/components/CommandPalette.svelte
+                                  Search, keyboard navigation and commands
+src/components/PsstDemo.svelte     Interactive placeholder job cards
+src/lib/page.js                    Project browser, shortcuts, scroll and media
+src/lib/shell.js                   Terminal commands
+src/lib/actions.js                 Events between islands and page controls
+src/styles/global.css             Layout, typography and responsive styles
+public/assets/                    Images, videos, favicon and fonts
+e2e/                              Behavior tests and original-site screenshots
 ```
 
-Edit `index.html` to update projects and personal information. Keep media in `assets/` and use relative paths so the site works at either a domain root or a repository subpath.
+Edit `src/pages/index.astro` to update projects and personal information. Asset links use Astro's base URL so media works on the GitHub Pages repository subpath.
+
+Astro renders the page and all island content as HTML. Without JavaScript, every project remains readable. Svelte hydrates only the interactive shell, palette and job-card demo. Page-wide shortcuts coordinate these islands through `portfolio:*` DOM events.
 
 ## Interactions
 
-- **Browse projects:** use the project list, previous/next buttons, or `j` / `k`.
-- **Jump anywhere:** press `/` or `⌘K` / `Ctrl+K` for the command palette.
-- **Try the terminal:** type `help` in the homepage prompt.
-- **See all shortcuts:** press `?`.
+- Use the project list, previous/next buttons, or `j` / `k` to browse.
+- Press `/` or `⌘K` / `Ctrl+K` to open the command palette.
+- Type `help` in the homepage terminal.
+- Press `?` to see all shortcuts.
 
-The layout adapts to mobile screens and respects reduced-motion preferences. Fonts and media are served locally; the site has no analytics or tracking scripts.
+The layout adapts to mobile screens and respects reduced-motion preferences.
+
+## Tests
+
+```sh
+vp exec playwright install chromium
+vp run build
+vp run e2e
+```
+
+The desktop and mobile tests cover navigation, deep links, clipboard actions, shell commands, history, completion, dialogs, job-card controls and the no-JavaScript page. Visual tests compare against screenshots captured from the original static site. Project screenshots hide fixed page chrome to keep tall mobile captures stable.
+
+CI runs behavior tests on Linux. Run visual tests locally with the pinned Playwright browser because rendering can vary by operating system.
 
 ## Deployment
 
-Upload `index.html`, `css/`, `js/`, and `assets/` to any static host. No install or build command is needed.
+Pushes to `main` run checks, build the site and deploy `dist/` through GitHub Actions to [GitHub Pages](https://simonteague6.github.io/portfolio-site/). Pull requests run the same checks without deploying.
 
-For GitHub Pages, select **Settings → Pages → Deploy from a branch → main → / (root)**.
-
-> [!IMPORTANT]
-> Research directories and local credentials are excluded by `.gitignore`. Keep private notes outside the published site. Git ignore rules do not prevent a static server from serving files in its directory.
+Only `dist/` is published. Research notes, credentials, source files and dependencies are not part of the deployment artifact.

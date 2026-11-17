@@ -1,3 +1,11 @@
+---
+import Shell from '../components/Shell.svelte';
+import PsstDemo from '../components/PsstDemo.svelte';
+import CommandPalette from '../components/CommandPalette.svelte';
+import '../styles/global.css';
+
+const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
+---
 <!doctype html>
 <html lang="en">
 <head>
@@ -16,10 +24,10 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Simon Teague, in monospace on a dark charcoal background, with a terminal prompt.">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-<link rel="preload" href="assets/fonts/jetbrains-mono-latin-var.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="css/style.css">
-<script>document.documentElement.classList.add('js')</script>
+<link rel="icon" href={base + "assets/favicon.svg"} type="image/svg+xml">
+<link rel="preload" href={base + "assets/fonts/jetbrains-mono-latin-var.woff2"} as="font" type="font/woff2" crossorigin>
+
+<script is:inline>document.documentElement.classList.add('js')</script>
 </head>
 <body>
 <a class="skip" href="#projects">Skip to projects</a>
@@ -36,7 +44,6 @@
 
 <main>
 
-<!-- ───────────────────────── home ───────────────────────── -->
 <section class="hero" id="home" data-path="~">
   <div class="wrap hero-grid">
     <div class="hero-copy">
@@ -51,39 +58,10 @@
       </ul>
     </div>
 
-    <div class="term hero-term" id="shell">
-      <div class="term-bar" aria-hidden="true"><i></i><i></i><i></i><span>~</span></div>
-      <div class="term-body" id="shell-body">
-        <div id="shell-out" role="log" aria-label="Terminal output">
-          <p class="ln step"><span class="pr">›</span> <span class="cmd" data-type>whoami</span></p>
-          <div class="out step">
-            <p>simon teague</p>
-            <p class="dim">cs sophomore, utsa, class of 2029</p>
-          </div>
-          <p class="ln step"><span class="pr">›</span> <span class="cmd" data-type>ls projects/</span></p>
-          <div class="out step ls">
-            <a href="#p-skill-shelf">skill-shelf/</a>
-            <a href="#p-psst">psst/</a>
-            <a href="#p-minimap">minimap/</a>
-            <a href="#p-help-wanted">help-wanted/</a>
-            <a href="#p-omt">omt/</a>
-            <a href="#p-aloud-tts">aloud-tts/</a>
-            <a href="#p-workout-app">workout-app/</a>
-            <a href="#p-agent-extensions">agent-extensions/</a>
-            <a href="#p-china-website">china-website/</a>
-            <a href="#p-jev">jev/</a>
-          </div>
-        </div>
-        <form class="ln shell-form step" id="shell-form" autocomplete="off">
-          <label for="shell-in"><span class="pr" aria-hidden="true">›</span><span class="vh">Type a command, for example help</span></label>
-          <input id="shell-in" type="text" spellcheck="false" autocapitalize="off" autocorrect="off" placeholder="type help, or press i" enterkeyhint="go">
-        </form>
-      </div>
-    </div>
+    <Shell client:load />
   </div>
 </section>
 
-<!-- ───────────────────────── projects ───────────────────────── -->
 <section class="projects" id="projects" data-path="~/projects">
   <div class="wrap">
     <header class="sec-head">
@@ -116,7 +94,6 @@
 
       <div class="pane pane-detail" id="detail">
 
-        <!-- 01 skill-shelf -->
         <article class="proj" id="p-skill-shelf" data-name="skill-shelf" data-open="https://github.com/simonteague6/skill-shelf" data-yank="npx @simonteague6/skill-shelf">
           <header class="proj-head">
             <p class="meta"><span>01</span><span>solo</span><span>TypeScript</span><span>v0.2.0 · Nov 2026</span></p>
@@ -127,7 +104,7 @@
             <div class="term">
               <div class="term-bar" aria-hidden="true"><i></i><i></i><i></i><span>skill-shelf</span></div>
               <div class="term-media scan">
-                <video id="ss-video" src="assets/skill-shelf-demo.mp4" poster="assets/skill-shelf-poster.jpg" width="1200" height="760" muted loop playsinline controls preload="metadata" aria-label="Screen recording of Skill Shelf: a list of installed agent skills grouped by source, then the detail view for single skills."></video>
+                <video id="ss-video" src={base + "assets/skill-shelf-demo.mp4"} poster={base + "assets/skill-shelf-poster.jpg"} width="1200" height="760" muted loop playsinline controls preload="metadata" aria-label="Screen recording of Skill Shelf: a list of installed agent skills grouped by source, then the detail view for single skills."></video>
               </div>
             </div>
             <figcaption>The demo from the README, 20 seconds on a loop. <button type="button" class="linkish" id="ss-toggle" hidden>pause</button></figcaption>
@@ -152,7 +129,6 @@
           </p>
         </article>
 
-        <!-- 02 psst -->
         <article class="proj" id="p-psst" data-name="psst">
           <header class="proj-head">
             <p class="meta"><span>02</span><span>solo</span><span>Go</span><span>Oct 2026</span></p>
@@ -162,32 +138,7 @@
           <figure class="shot">
             <div class="term">
               <div class="term-bar" aria-hidden="true"><i></i><i></i><i></i><span>psst</span></div>
-              <div class="term-body mock-psst" id="psst-mock" role="group" aria-label="Illustrative psst interface with three placeholder listings">
-                <p class="mp-head"><b>psst</b><span>profile: summer-2027</span><span>showing 3</span></p>
-                <button type="button" class="card is-sel" data-status="">
-                  <span class="lbl"></span>
-                  <span class="role">Software Engineering Intern</span>
-                  <span class="co">Example Co. · San Antonio, TX</span>
-                  <span class="when">Summer 2027 · added to source 2 days ago</span>
-                </button>
-                <button type="button" class="card" data-status="applied">
-                  <span class="lbl"></span>
-                  <span class="role">Developer Tools Intern</span>
-                  <span class="co">Placeholder Labs · Remote</span>
-                  <span class="when">Summer 2027 · added to source 4 days ago</span>
-                </button>
-                <button type="button" class="card" data-status="dismissed">
-                  <span class="lbl"></span>
-                  <span class="role">Backend Engineering Intern</span>
-                  <span class="co">Acme Corp · Austin, TX</span>
-                  <span class="when">Summer 2027 · added to source 6 days ago</span>
-                </button>
-                <p class="mp-keys">
-                  <button type="button" data-k="a"><kbd>a</kbd> applied</button>
-                  <button type="button" data-k="d"><kbd>d</kbd> dismiss</button>
-                  <button type="button" data-k="u"><kbd>u</kbd> undo</button>
-                </p>
-              </div>
+               <PsstDemo client:load />
             </div>
             <figcaption>An illustrative mock-up built from the README, not a screenshot. The listings are placeholders. Pick a card and try <kbd>a</kbd>, <kbd>d</kbd> and <kbd>u</kbd>.</figcaption>
           </figure>
@@ -206,7 +157,6 @@
           </div>
         </article>
 
-        <!-- 03 minimap -->
         <article class="proj" id="p-minimap" data-name="minimap" data-open="https://github.com/RC-MiniMap/minimap">
           <header class="proj-head">
             <p class="meta"><span>03</span><span class="team">team · lead</span><span>Python</span><span>Apr–Sep 2026</span></p>
@@ -259,7 +209,6 @@
           </p>
         </article>
 
-        <!-- 04 help wanted -->
         <article class="proj" id="p-help-wanted" data-name="help-wanted" data-open="https://github.com/SamuelSaylor/Help-Wanted" data-yank="pip install help-wanted">
           <header class="proj-head">
             <p class="meta"><span>04</span><span class="team">team of four</span><span>Python</span><span>31 Oct 2026</span></p>
@@ -270,7 +219,7 @@
             <div class="term">
               <div class="term-bar" aria-hidden="true"><i></i><i></i><i></i><span>help-wanted</span></div>
               <div class="term-media">
-                <video src="assets/help-wanted-demo.mp4" poster="assets/help-wanted-poster.jpg" width="1280" height="678" muted playsinline controls preload="none" aria-label="Screen recording of a full Help Wanted run: setup, the questionnaire, project search, and two recommended issues with first steps."></video>
+                <video src={base + "assets/help-wanted-demo.mp4"} poster={base + "assets/help-wanted-poster.jpg"} width="1280" height="678" muted playsinline controls preload="none" aria-label="Screen recording of a full Help Wanted run: setup, the questionnaire, project search, and two recommended issues with first steps."></video>
               </div>
             </div>
             <figcaption>A real recording of one full run, cropped and sped up 6×. 38 seconds, no sound.</figcaption>
@@ -289,7 +238,7 @@
               <div><dt>role</dt><dd>one of four; main implementation PR</dd></div>
               <div><dt>stack</dt><dd>Python 3.13, LangGraph, Ollama, uv</dd></div>
               <div><dt>licence</dt><dd>MIT</dd></div>
-              <div><dt>logo</dt><dd class="hw-logo"><img src="assets/help-wanted-logo.png" width="300" height="300" loading="lazy" alt="The Help Wanted logo: a hand-drawn note with HELP WANTED scrawled in red."><span>The logo. No notes.</span></dd></div>
+              <div><dt>logo</dt><dd class="hw-logo"><img src={base + "assets/help-wanted-logo.png"} width="300" height="300" loading="lazy" alt="The Help Wanted logo: a hand-drawn note with HELP WANTED scrawled in red."><span>The logo. No notes.</span></dd></div>
             </dl>
           </div>
           <p class="links">
@@ -298,7 +247,6 @@
           </p>
         </article>
 
-        <!-- 05 omt -->
         <article class="proj" id="p-omt" data-name="omt" data-open="https://github.com/simonteague6/ollama-model-tester">
           <header class="proj-head">
             <p class="meta"><span>05</span><span>solo</span><span>Go</span><span>v0.1.0 · 2026</span></p>
@@ -337,7 +285,6 @@
           </p>
         </article>
 
-        <!-- 06 aloud-tts -->
         <article class="proj" id="p-aloud-tts" data-name="aloud-tts" data-open="https://github.com/simonteague6/aloud-tts">
           <header class="proj-head">
             <p class="meta"><span>06</span><span>solo</span><span>Python</span><span>2026</span></p>
@@ -371,7 +318,6 @@
           </p>
         </article>
 
-        <!-- 07 workout-app -->
         <article class="proj" id="p-workout-app" data-name="workout-app" data-open="https://github.com/simonteague6/workout-app">
           <header class="proj-head">
             <p class="meta"><span>07</span><span>solo</span><span>React Native</span><span>2026</span></p>
@@ -422,7 +368,6 @@
           </p>
         </article>
 
-        <!-- 08 agent extensions -->
         <article class="proj" id="p-agent-extensions" data-name="agent-extensions" data-open="https://github.com/simonteague6/pi-engineering-toolkit">
           <header class="proj-head">
             <p class="meta"><span>08</span><span>solo</span><span>TypeScript</span><span>2026</span></p>
@@ -450,7 +395,6 @@
           </dl>
         </article>
 
-        <!-- 09 china-website -->
         <article class="proj" id="p-china-website" data-name="china-website" data-open="https://china.simonteague.xyz">
           <header class="proj-head">
             <p class="meta"><span>09</span><span>solo</span><span>HTML · CSS · JS</span><span>2026</span></p>
@@ -478,7 +422,6 @@
           </p>
         </article>
 
-        <!-- 10 jev -->
         <article class="proj" id="p-jev" data-name="jev" data-open="https://github.com/RowdyCreators/Jev-Scam-Detector">
           <header class="proj-head">
             <p class="meta"><span>10</span><span class="team">team of four</span><span>Python · TypeScript</span><span>Oct 2026</span></p>
@@ -511,11 +454,10 @@
   </div>
 </section>
 
-<!-- ───────────────────────── about ───────────────────────── -->
 <section class="about" id="about" data-path="~/about">
   <div class="wrap about-grid">
     <figure class="portrait">
-      <img src="assets/simon-portrait.jpg" width="800" height="1000" loading="lazy" alt="Simon Teague, smiling, in a sage green knit polo against a pale grey background.">
+      <img src={base + "assets/simon-portrait.jpg"} width="800" height="1000" loading="lazy" alt="Simon Teague, smiling, in a sage green knit polo against a pale grey background.">
       <figcaption><span>simon-portrait.jpg</span><span>utsa · class of 2029</span></figcaption>
     </figure>
     <div class="about-copy">
@@ -545,7 +487,6 @@
   </div>
 </section>
 
-<!-- ───────────────────────── contact ───────────────────────── -->
 <section class="contact" id="contact" data-path="~/contact">
   <div class="wrap">
     <p class="eyebrow"><span class="pr" aria-hidden="true">›</span> open</p>
@@ -557,14 +498,13 @@
     </ul>
   </div>
   <footer class="foot wrap">
-    <p>Static HTML, CSS and vanilla JS. No build step, no tracking, no cookies.</p>
+    <p>Astro, Svelte islands and Vite+. No tracking, no cookies.</p>
     <p>Built with an AI coding agent, like most of what's on it.</p>
   </footer>
 </section>
 
 </main>
 
-<!-- status line -->
 <div class="status" id="status">
   <span class="mode" id="mode">NORMAL</span>
   <span class="path" id="path">~</span>
@@ -575,18 +515,8 @@
 </div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-<!-- command palette -->
-<dialog class="dlg palette" id="palette" aria-label="Command palette">
-  <div class="pal-in">
-    <span class="pr" aria-hidden="true">/</span>
-    <input id="pal-input" type="text" role="combobox" aria-expanded="true" aria-controls="pal-list" aria-autocomplete="list" aria-label="Search projects, sections and commands" placeholder="project, section or command" spellcheck="false" autocomplete="off" autocapitalize="off">
-    <button type="button" class="esc" data-close><kbd>esc</kbd></button>
-  </div>
-  <ul id="pal-list" role="listbox" aria-label="Results"></ul>
-  <p class="dlg-foot" aria-hidden="true"><span><kbd>↑</kbd><kbd>↓</kbd> move</span><span><kbd>enter</kbd> go</span></p>
-</dialog>
+<CommandPalette client:load />
 
-<!-- keys -->
 <dialog class="dlg keys" id="keys" aria-labelledby="keys-h">
   <div class="dlg-head"><h2 id="keys-h">Keys</h2><button type="button" class="esc" data-close><kbd>esc</kbd></button></div>
   <div class="keys-grid">
@@ -614,6 +544,6 @@
   <p class="dlg-foot">Everything here also works with a mouse or a thumb. The keys are just faster.</p>
 </dialog>
 
-<script src="js/main.js" defer></script>
+<script>import "../lib/page.js";</script>
 </body>
 </html>
