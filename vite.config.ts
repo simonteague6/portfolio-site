@@ -10,9 +10,12 @@ export default defineConfig({
       // the design kit, copied in verbatim and overridden from src/styles/global.css
       "public/assets/system.{css,js}",
       "public/assets/{backgrounds,icons,layout,moments,motion,ui}/**",
-      // local design-skill tooling, never committed
+      // the installed agent skill (vendored, see skills-lock.json) and its local working folder
       ".agents/**",
       ".taste-skill/**",
     ],
+  },
+  lint: {
+    ignorePatterns: [".agents/**", ".taste-skill/**"],
   },
 });
