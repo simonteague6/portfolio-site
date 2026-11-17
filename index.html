@@ -1,0 +1,619 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Simon Teague · small, finished, local-first tools</title>
+<meta name="description" content="Simon Teague is a computer science sophomore at UTSA who ships small, finished tools: terminal UIs, plugins for AI coding agents, and apps he wanted to exist.">
+<meta name="author" content="Simon Teague">
+<meta name="theme-color" content="#1c1a18">
+<meta name="color-scheme" content="dark">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Simon Teague">
+<meta property="og:description" content="CS sophomore at UTSA. Terminal UIs, plugins for AI coding agents, and other small, finished, local-first tools.">
+<meta property="og:image" content="assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Simon Teague, in monospace on a dark charcoal background, with a terminal prompt.">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/jetbrains-mono-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/style.css">
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+<a class="skip" href="#projects">Skip to projects</a>
+
+<header class="topbar">
+  <a class="brand" href="#home" aria-label="Simon Teague, home"><span class="brand-full">simon teague</span><span class="brand-short">st</span><span class="caret" aria-hidden="true"></span></a>
+  <nav class="topnav" aria-label="Sections">
+    <a href="#home" data-sec="home"><kbd aria-hidden="true">1</kbd>home</a>
+    <a href="#projects" data-sec="projects"><kbd aria-hidden="true">2</kbd>projects</a>
+    <a href="#about" data-sec="about"><kbd aria-hidden="true">3</kbd>about</a>
+    <a href="#contact" data-sec="contact"><kbd aria-hidden="true">4</kbd>contact</a>
+  </nav>
+</header>
+
+<main>
+
+<!-- ───────────────────────── home ───────────────────────── -->
+<section class="hero" id="home" data-path="~">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <p class="eyebrow"><span class="pr" aria-hidden="true">›</span> whoami</p>
+      <h1>Simon<br>Teague</h1>
+      <p class="lead">I'm a computer science sophomore at UTSA. I make small, finished, local-first tools: terminal UIs, plugins for AI coding agents, and apps I wanted to exist.</p>
+      <p class="sub">Project Advisor at Rowdy Creators, ACM at UTSA. Looking for a software internship for summer 2027.</p>
+      <ul class="keyrow" aria-label="Keyboard shortcuts">
+        <li><button type="button" data-act="next"><kbd>j</kbd><kbd>k</kbd><span>browse projects</span></button></li>
+        <li><button type="button" data-act="palette"><kbd>/</kbd><span>jump anywhere</span></button></li>
+        <li><button type="button" data-act="help"><kbd>?</kbd><span>all keys</span></button></li>
+      </ul>
+    </div>
+
+    <div class="term hero-term" id="shell">
+      <div class="term-bar" aria-hidden="true"><i></i><i></i><i></i><span>~</span></div>
+      <div class="term-body" id="shell-body">
+        <div id="shell-out" role="log" aria-label="Terminal output">
+          <p class="ln step"><span class="pr">›</span> <span class="cmd" data-type>whoami</span></p>
+          <div class="out step">
+            <p>simon teague</p>
+            <p class="dim">cs sophomore, utsa, class of 2029</p>
+          </div>
+          <p class="ln step"><span class="pr">›</span> <span class="cmd" data-type>ls projects/</span></p>
+          <div class="out step ls">
+            <a href="#p-skill-shelf">skill-shelf/</a>
+            <a href="#p-psst">psst/</a>
+            <a href="#p-minimap">minimap/</a>
+            <a href="#p-help-wanted">help-wanted/</a>
+            <a href="#p-omt">omt/</a>
+            <a href="#p-aloud-tts">aloud-tts/</a>
+            <a href="#p-workout-app">workout-app/</a>
+            <a href="#p-agent-extensions">agent-extensions/</a>
+            <a href="#p-china-website">china-website/</a>
+            <a href="#p-jev">jev/</a>
+          </div>
+        </div>
+        <form class="ln shell-form step" id="shell-form" autocomplete="off">
+          <label for="shell-in"><span class="pr" aria-hidden="true">›</span><span class="vh">Type a command, for example help</span></label>
+          <input id="shell-in" type="text" spellcheck="false" autocapitalize="off" autocorrect="off" placeholder="type help, or press i" enterkeyhint="go">
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────────────────── projects ───────────────────────── -->
+<section class="projects" id="projects" data-path="~/projects">
+  <div class="wrap">
+    <header class="sec-head">
+      <p class="eyebrow"><span class="pr" aria-hidden="true">›</span> cd projects/</p>
+      <h2>Projects</h2>
+      <p class="sec-note">Ten things I shipped or helped ship. Nearly all of it was built with AI coding agents: I write the specs, split the work into issues, integrate it through pull requests and release it. Team projects are marked as team projects.</p>
+    </header>
+
+    <div class="browser" id="browser">
+      <div class="pane pane-list">
+        <div class="pane-title"><span>projects/</span><span class="count" id="pos">01/10</span></div>
+        <nav aria-label="Project list">
+          <ol class="rows" id="rows">
+            <li class="grp" aria-hidden="true">featured <b>7</b></li>
+            <li><a class="row" href="#p-skill-shelf"><span class="n">01</span><span class="nm">skill-shelf</span><span class="tg">ts · npm</span></a></li>
+            <li><a class="row" href="#p-psst"><span class="n">02</span><span class="nm">psst</span><span class="tg">go</span></a></li>
+            <li><a class="row" href="#p-minimap"><span class="n">03</span><span class="nm">minimap</span><span class="tg">py · team</span></a></li>
+            <li><a class="row" href="#p-help-wanted"><span class="n">04</span><span class="nm">help-wanted</span><span class="tg">py · team</span></a></li>
+            <li><a class="row" href="#p-omt"><span class="n">05</span><span class="nm">omt</span><span class="tg">go</span></a></li>
+            <li><a class="row" href="#p-aloud-tts"><span class="n">06</span><span class="nm">aloud-tts</span><span class="tg">py · macos</span></a></li>
+            <li><a class="row" href="#p-workout-app"><span class="n">07</span><span class="nm">workout-app</span><span class="tg">react native</span></a></li>
+            <li class="grp grp-2" aria-hidden="true">also <b>3</b></li>
+            <li><a class="row" href="#p-agent-extensions"><span class="n">08</span><span class="nm">agent-extensions</span><span class="tg">ts</span></a></li>
+            <li><a class="row" href="#p-china-website"><span class="n">09</span><span class="nm">china-website</span><span class="tg">pwa · live</span></a></li>
+            <li><a class="row" href="#p-jev"><span class="n">10</span><span class="nm">jev</span><span class="tg">team</span></a></li>
+          </ol>
+        </nav>
+        <div class="pane-foot" aria-hidden="true"><span><kbd>j</kbd><kbd>k</kbd> move</span><span><kbd>o</kbd> open</span><span><kbd>y</kbd> copy</span></div>
+      </div>
+
+      <div class="pane pane-detail" id="detail">
+
+        <!-- 01 skill-shelf -->
+        <article class="proj" id="p-skill-shelf" data-name="skill-shelf" data-open="https://github.com/simonteague6/skill-shelf" data-yank="npx @simonteague6/skill-shelf">
+          <header class="proj-head">
+            <p class="meta"><span>01</span><span>solo</span><span>TypeScript</span><span>v0.2.0 · Nov 2026</span></p>
+            <h3>skill-shelf</h3>
+            <p class="tagline">Browse the agent skills installed on your machine, in the terminal.</p>
+          </header>
+          <figure class="shot">
+            <div class="term">
+              <div class="term-bar" aria-hidden="true"><i></i><i></i><i></i><span>skill-shelf</span></div>
+              <div class="term-media scan">
+                <video id="ss-video" src="assets/skill-shelf-demo.mp4" poster="assets/skill-shelf-poster.jpg" width="1200" height="760" muted loop playsinline controls preload="metadata" aria-label="Screen recording of Skill Shelf: a list of installed agent skills grouped by source, then the detail view for single skills."></video>
+              </div>
+            </div>
+            <figcaption>The demo from the README, 20 seconds on a loop. <button type="button" class="linkish" id="ss-toggle" hidden>pause</button></figcaption>
+          </figure>
+          <div class="cols">
+            <div class="prose">
+              <p>A read-only terminal UI that lists the agent skills you already have, grouped by where they came from, across the current project and your global directory.</p>
+              <p>It does not install skills, change files, fetch registries, or detect installed agents. It looks. That's the whole feature.</p>
+              <p>It is also the most finished thing I've shipped: CI, Release Please with npm trusted publishing, a changelog, a compatibility doc, and tests that drive the app through a pseudo-terminal.</p>
+              <p class="yank"><code>npx @simonteague6/skill-shelf</code><button type="button" data-copy="npx @simonteague6/skill-shelf">copy</button></p>
+            </div>
+            <dl class="facts">
+              <div><dt>role</dt><dd>solo</dd></div>
+              <div><dt>stack</dt><dd>TypeScript, Ink, Node 20+</dd></div>
+              <div><dt>licence</dt><dd>MIT</dd></div>
+              <div><dt>usage</dt><dd>About 500 npm downloads in the 30 days to mid-November 2026. That's the registry's raw count, so it includes bots and mirrors.</dd></div>
+            </dl>
+          </div>
+          <p class="links">
+            <a href="https://github.com/simonteague6/skill-shelf" rel="noopener"><kbd aria-hidden="true">o</kbd>GitHub</a>
+            <a href="https://www.npmjs.com/package/@simonteague6/skill-shelf" rel="noopener">npm</a>
+          </p>
+        </article>
+
+        <!-- 02 psst -->
+        <article class="proj" id="p-psst" data-name="psst">
+          <header class="proj-head">
+            <p class="meta"><span>02</span><span>solo</span><span>Go</span><span>Oct 2026</span></p>
+            <h3>psst</h3>
+            <p class="tagline"><q>Psst. Found a few openings.</q> Software engineering internship listings, in the terminal.</p>
+          </header>
+          <figure class="shot">
+            <div class="term">
+              <div class="term-bar" aria-hidden="true"><i></i><i></i><i></i><span>psst</span></div>
+              <div class="term-body mock-psst" id="psst-mock" role="group" aria-label="Illustrative psst interface with three placeholder listings">
+                <p class="mp-head"><b>psst</b><span>profile: summer-2027</span><span>showing 3</span></p>
+                <button type="button" class="card is-sel" data-status="">
+                  <span class="lbl"></span>
+                  <span class="role">Software Engineering Intern</span>
+                  <span class="co">Example Co. · San Antonio, TX</span>
+                  <span class="when">Summer 2027 · added to source 2 days ago</span>
+                </button>
+                <button type="button" class="card" data-status="applied">
+                  <span class="lbl"></span>
+                  <span class="role">Developer Tools Intern</span>
+                  <span class="co">Placeholder Labs · Remote</span>
+                  <span class="when">Summer 2027 · added to source 4 days ago</span>
+                </button>
+                <button type="button" class="card" data-status="dismissed">
+                  <span class="lbl"></span>
+                  <span class="role">Backend Engineering Intern</span>
+                  <span class="co">Acme Corp · Austin, TX</span>
+                  <span class="when">Summer 2027 · added to source 6 days ago</span>
+                </button>
+                <p class="mp-keys">
+                  <button type="button" data-k="a"><kbd>a</kbd> applied</button>
+                  <button type="button" data-k="d"><kbd>d</kbd> dismiss</button>
+                  <button type="button" data-k="u"><kbd>u</kbd> undo</button>
+                </p>
+              </div>
+            </div>
+            <figcaption>An illustrative mock-up built from the README, not a screenshot. The listings are placeholders. Pick a card and try <kbd>a</kbd>, <kbd>d</kbd> and <kbd>u</kbd>.</figcaption>
+          </figure>
+          <div class="cols">
+            <div class="prose">
+              <p>Pick a profile, get a short list of open internships, and open the ones worth applying to. Listings come from the public SimplifyJobs / Pitt CSC Summer 2027 feed and are cached, so a failed refresh still shows the last good data and when it was downloaded.</p>
+              <p>Applied and dismissed decisions stay on your computer. Opening a link does not mark anything as applied, and psst does not submit applications. I use it for my own search.</p>
+              <p>I made it by directing AI agents: requirements and specs first, then GitHub issues, agents working in separate git worktrees, and pull requests gated on format, vet, test and build checks.</p>
+            </div>
+            <dl class="facts">
+              <div><dt>role</dt><dd>solo, AI-assisted</dd></div>
+              <div><dt>stack</dt><dd>Go, GitHub Actions, Release Please</dd></div>
+              <div><dt>runs on</dt><dd>macOS and Linux, including WSL</dd></div>
+              <div><dt>status</dt><dd>Pre-release. The repository is private until the first public release, so there is nothing to link yet.</dd></div>
+            </dl>
+          </div>
+        </article>
+
+        <!-- 03 minimap -->
+        <article class="proj" id="p-minimap" data-name="minimap" data-open="https://github.com/RC-MiniMap/minimap">
+          <header class="proj-head">
+            <p class="meta"><span>03</span><span class="team">team · lead</span><span>Python</span><span>Apr–Sep 2026</span></p>
+            <h3>minimap</h3>
+            <p class="tagline"><q>Google Maps, but for hallways and staircases.</q></p>
+          </header>
+          <figure class="shot">
+            <div class="term">
+              <div class="term-bar" aria-hidden="true"><i></i><i></i><i></i><span>minimap</span></div>
+              <div class="term-body mock-map">
+                <svg viewBox="0 0 640 260" role="img" aria-label="Diagram: two floors drawn as hallways with rooms attached. A highlighted route runs from a room on floor 1, along the hallway, up a staircase, and along floor 2 to another room.">
+                  <g class="mm-lbl"><text x="14" y="62">floor 2</text><text x="14" y="192">floor 1</text></g>
+                  <g class="mm-edge">
+                    <path d="M90 70H590M90 200H590"/>
+                    <path d="M150 70V34M230 70V34M310 70V106M470 70V34M550 70V34M550 70V106M150 200V164M150 200V236M230 200V236M310 200V164M470 200V236M550 200V164"/>
+                    <path class="mm-stair" d="M390 70V200M90 70V200"/>
+                  </g>
+                  <path class="mm-route" pathLength="100" d="M150 236V200H390V70H550V34"/>
+                  <g class="mm-room">
+                    <rect x="138" y="14" width="24" height="20"/><rect x="218" y="14" width="24" height="20"/><rect x="298" y="106" width="24" height="20"/><rect x="458" y="14" width="24" height="20"/><rect x="538" y="106" width="24" height="20"/>
+                    <rect x="138" y="144" width="24" height="20"/><rect x="218" y="236" width="24" height="20"/><rect x="298" y="144" width="24" height="20"/><rect x="458" y="236" width="24" height="20"/><rect x="538" y="144" width="24" height="20"/>
+                  </g>
+                  <g class="mm-node">
+                    <circle cx="150" cy="70" r="4"/><circle cx="230" cy="70" r="4"/><circle cx="310" cy="70" r="4"/><circle cx="470" cy="70" r="4"/><circle cx="550" cy="70" r="4"/>
+                    <circle cx="150" cy="200" r="4"/><circle cx="230" cy="200" r="4"/><circle cx="310" cy="200" r="4"/><circle cx="470" cy="200" r="4"/><circle cx="550" cy="200" r="4"/>
+                  </g>
+                  <g class="mm-conn"><rect x="382" y="62" width="16" height="16"/><rect x="382" y="192" width="16" height="16"/><rect x="82" y="62" width="16" height="16"/><rect x="82" y="192" width="16" height="16"/></g>
+                  <g class="mm-end"><rect x="138" y="236" width="24" height="20"/><rect x="538" y="14" width="24" height="20"/></g>
+                  <g class="mm-lbl on"><text x="170" y="251">start</text><text x="570" y="29">end</text><text x="404" y="140">stairs</text><text x="104" y="140" class="off">elevator</text></g>
+                </svg>
+              </div>
+            </div>
+            <figcaption>A diagram of the idea, not the real map. Rooms, hallway <q>spine</q> nodes, staircases and elevators form a graph; directions are a shortest path through it.</figcaption>
+          </figure>
+          <div class="cols">
+            <div class="prose">
+              <p>Type a room, get step-by-step walking directions inside a UTSA building. The building is stored as a weighted graph in JSON, NetworkX finds the path, and Leaflet draws it.</p>
+              <p>This is a Rowdy Creators team project. I led it: weekly standups, pull-request reviews, and 122 of roughly 155 commits. The repo also has browser tools for importing rooms from CSV, calibrating coordinates, placing nodes and generating the edges between floors.</p>
+              <p>The README is written to teach teammates who are new to all of this.</p>
+            </div>
+            <dl class="facts">
+              <div><dt>role</dt><dd>team lead on a club project; development was AI-assisted</dd></div>
+              <div><dt>scale</dt><dd>five floors, 277 nodes, 580 directed edges</dd></div>
+              <div><dt>stack</dt><dd>Python, Flask, NetworkX, Leaflet.js, Docker, Gunicorn, GitHub Actions</dd></div>
+              <div><dt>tests</dt><dd>146 automated tests. They were AI-generated; I'm not going to call them hand-written.</dd></div>
+            </dl>
+          </div>
+          <p class="links">
+            <a href="https://github.com/RC-MiniMap/minimap" rel="noopener"><kbd aria-hidden="true">o</kbd>GitHub</a>
+          </p>
+        </article>
+
+        <!-- 04 help wanted -->
+        <article class="proj" id="p-help-wanted" data-name="help-wanted" data-open="https://github.com/SamuelSaylor/Help-Wanted" data-yank="pip install help-wanted">
+          <header class="proj-head">
+            <p class="meta"><span>04</span><span class="team">team of four</span><span>Python</span><span>31 Oct 2026</span></p>
+            <h3>Help Wanted</h3>
+            <p class="tagline">Finds a first open-source issue that fits what you know, and explains how to start it.</p>
+          </header>
+          <figure class="shot">
+            <div class="term">
+              <div class="term-bar" aria-hidden="true"><i></i><i></i><i></i><span>help-wanted</span></div>
+              <div class="term-media">
+                <video src="assets/help-wanted-demo.mp4" poster="assets/help-wanted-poster.jpg" width="1280" height="678" muted playsinline controls preload="none" aria-label="Screen recording of a full Help Wanted run: setup, the questionnaire, project search, and two recommended issues with first steps."></video>
+              </div>
+            </div>
+            <figcaption>A real recording of one full run, cropped and sped up 6×. 38 seconds, no sound.</figcaption>
+          </figure>
+          <ol class="pipe" aria-label="The six pipeline stages">
+            <li>setup</li><li>questionnaire</li><li>skill scan</li><li>discovery</li><li>issue search</li><li>recommendations</li>
+          </ol>
+          <div class="cols">
+            <div class="prose">
+              <p>One command and a few optional questions. You get a short list of real GitHub issues with a plain explanation of why each fits and how to start, written in your own language. Gemma 4 runs locally through Ollama and makes the decisions at each of the six stages.</p>
+              <p>The eligibility rules are code, not vibes: an issue must be open, unassigned, updated in the last six months and have no linked pull request. If too few pass, you get fewer recommendations and a reason.</p>
+              <p>Built in one day at Hacktoberfest Hack Day San Antonio 2026 by Nathan Davies, Samuel Saylor, Fredy Mata and me. I authored the main implementation pull request and 47 of the 66 commits. The repository lives on Samuel's account.</p>
+              <p class="yank"><code>pip install help-wanted</code><button type="button" data-copy="pip install help-wanted">copy</button></p>
+            </div>
+            <dl class="facts">
+              <div><dt>role</dt><dd>one of four; main implementation PR</dd></div>
+              <div><dt>stack</dt><dd>Python 3.13, LangGraph, Ollama, uv</dd></div>
+              <div><dt>licence</dt><dd>MIT</dd></div>
+              <div><dt>logo</dt><dd class="hw-logo"><img src="assets/help-wanted-logo.png" width="300" height="300" loading="lazy" alt="The Help Wanted logo: a hand-drawn note with HELP WANTED scrawled in red."><span>The logo. No notes.</span></dd></div>
+            </dl>
+          </div>
+          <p class="links">
+            <a href="https://github.com/SamuelSaylor/Help-Wanted" rel="noopener"><kbd aria-hidden="true">o</kbd>GitHub</a>
+            <a href="https://pypi.org/project/help-wanted/" rel="noopener">PyPI</a>
+          </p>
+        </article>
+
+        <!-- 05 omt -->
+        <article class="proj" id="p-omt" data-name="omt" data-open="https://github.com/simonteague6/ollama-model-tester">
+          <header class="proj-head">
+            <p class="meta"><span>05</span><span>solo</span><span>Go</span><span>v0.1.0 · 2026</span></p>
+            <h3>omt</h3>
+            <p class="tagline">ollama-model-tester. Benchmark Ollama models from a CLI or a TUI.</p>
+          </header>
+          <figure class="shot">
+            <div class="term">
+              <div class="term-bar" aria-hidden="true"><i></i><i></i><i></i><span>omt</span></div>
+              <div class="term-body mock-omt" role="img" aria-label="Illustrative omt layout: a table of models with columns for time to first token, tokens per second and total latency. The values are intentionally blank.">
+                <p class="mo-head"><b>omt</b><span>benchmark</span><span class="run"><i></i>running</span></p>
+                <div class="mo-table">
+                  <span class="th">model</span><span class="th">ttft</span><span class="th">tok/s</span><span class="th">total</span>
+                  <span>model-a <em>local</em></span><span class="ph live"></span><span class="ph live"></span><span class="ph live"></span>
+                  <span>model-b <em>local</em></span><span class="ph"></span><span class="ph"></span><span class="ph"></span>
+                  <span>model-c <em>cloud</em></span><span class="ph"></span><span class="ph"></span><span class="ph"></span>
+                </div>
+                <p class="mo-bar"><i></i></p>
+              </div>
+            </div>
+            <figcaption>An illustrative layout, not a screenshot. The numbers are blank on purpose: I didn't run a benchmark for this page, so I'm not printing one.</figcaption>
+          </figure>
+          <div class="cols">
+            <div class="prose">
+              <p>Measures time to first token, tokens per second and total latency for Ollama models, local or cloud. It does warmup runs, runs cloud models in parallel, writes JSON if you ask, and keeps history in SQLite.</p>
+              <p>The TUI shows per-run metrics as they arrive. The code is a plain <code>internal/</code> layout (benchmark, cli, config, metrics, ollama client, store, tui) with a test file beside nearly every package. It was built issue by issue over a day or two.</p>
+            </div>
+            <dl class="facts">
+              <div><dt>role</dt><dd>solo</dd></div>
+              <div><dt>stack</dt><dd>Go 1.25, SQLite</dd></div>
+              <div><dt>release</dt><dd>tagged v0.1.0</dd></div>
+            </dl>
+          </div>
+          <p class="links">
+            <a href="https://github.com/simonteague6/ollama-model-tester" rel="noopener"><kbd aria-hidden="true">o</kbd>GitHub</a>
+          </p>
+        </article>
+
+        <!-- 06 aloud-tts -->
+        <article class="proj" id="p-aloud-tts" data-name="aloud-tts" data-open="https://github.com/simonteague6/aloud-tts">
+          <header class="proj-head">
+            <p class="meta"><span>06</span><span>solo</span><span>Python</span><span>2026</span></p>
+            <h3>aloud-tts</h3>
+            <p class="tagline">Offline text-to-speech that lives in the macOS menu bar.</p>
+          </header>
+          <figure class="shot">
+            <div class="term plain">
+              <div class="mock-aloud" role="img" aria-label="Illustration: a menu bar with a small speaker icon, a sentence of selected text, the keys control, option and S, and a moving waveform.">
+                <p class="ma-bar"><span>aloud</span><i class="ma-ico"></i></p>
+                <p class="ma-text">Select text anywhere. <mark>Press the hotkey, and a local model reads it aloud.</mark> No account, no network.</p>
+                <p class="ma-keys"><kbd>ctrl</kbd><kbd>opt</kbd><kbd>S</kbd><span class="wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></p>
+              </div>
+            </div>
+            <figcaption>An illustration of the flow, not a screenshot.</figcaption>
+          </figure>
+          <div class="cols">
+            <div class="prose">
+              <p>Select text in any app, press <kbd>ctrl</kbd> <kbd>opt</kbd> <kbd>S</kbd>, and a local Kokoro-82M model reads it aloud through MLX on Apple Silicon. It is fully offline and needs no accounts.</p>
+              <p>It installs three ways: a curl installer, a Homebrew tap, or a .app bundle. There is also a one-shot CLI for when the menu bar is too much ceremony.</p>
+            </div>
+            <dl class="facts">
+              <div><dt>role</dt><dd>solo</dd></div>
+              <div><dt>stack</dt><dd>Python 3.12, MLX, rumps, pynput, uv</dd></div>
+              <div><dt>licence</dt><dd>MIT</dd></div>
+              <div><dt>fine print</dt><dd>The model is a download of about 330 MB. The README says the first word plays about a second after warmup; that is my own figure, not an independent measurement.</dd></div>
+            </dl>
+          </div>
+          <p class="links">
+            <a href="https://github.com/simonteague6/aloud-tts" rel="noopener"><kbd aria-hidden="true">o</kbd>GitHub</a>
+          </p>
+        </article>
+
+        <!-- 07 workout-app -->
+        <article class="proj" id="p-workout-app" data-name="workout-app" data-open="https://github.com/simonteague6/workout-app">
+          <header class="proj-head">
+            <p class="meta"><span>07</span><span>solo</span><span>React Native</span><span>2026</span></p>
+            <h3>workout-app</h3>
+            <p class="tagline">A free, open-source workout tracker for Android and iOS.</p>
+          </header>
+          <figure class="shot">
+            <div class="term plain">
+              <div class="mock-workout" role="img" aria-label="Illustration: a workout session with rows for warm-up, working, drop and failure sets, a rest timer, and a calendar heatmap.">
+                <div class="mw-phone">
+                  <p class="mw-h"><b>session</b><span>free-flow</span></p>
+                  <p class="mw-ex">exercise name</p>
+                  <ul class="mw-sets">
+                    <li><span class="t w">W</span><span>warm-up</span><i></i></li>
+                    <li><span class="t">1</span><span>working set</span><i></i></li>
+                    <li><span class="t">2</span><span>working set</span><i></i></li>
+                    <li><span class="t d">D</span><span>drop set</span><i class="todo"></i></li>
+                    <li><span class="t f">F</span><span>to failure</span><i class="todo"></i></li>
+                  </ul>
+                  <p class="mw-rest"><span>rest</span><span class="mw-track"><i></i></span></p>
+                </div>
+                <div class="mw-side">
+                  <p class="mw-h"><b>calendar</b><span>heatmap</span></p>
+                  <div class="mw-heat" id="heat"></div>
+                  <ul class="mw-list">
+                    <li>routine folders</li><li>progress charts</li><li>import / export</li><li>AI routine import</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <figcaption>An illustration of what it tracks, not a screenshot of the app.</figcaption>
+          </figure>
+          <div class="cols">
+            <div class="prose">
+              <p>Sessions can be free-flow or follow a routine. Sets have types (warm-up, drop set, failure), there is a rest timer, and routines live in folders. A calendar heatmap and progress charts show what you actually did, and your data can be imported and exported.</p>
+              <p>It can also import a routine with an LLM that is given an exercise-search tool, including multi-day routines, with a review screen at the end.</p>
+              <p>It is the largest of my own codebases and the only one here without a README. I know.</p>
+            </div>
+            <dl class="facts">
+              <div><dt>role</dt><dd>solo</dd></div>
+              <div><dt>stack</dt><dd>Expo, React Native, op-sqlite, Zustand, Skia, Reanimated, Jest</dd></div>
+              <div><dt>licence</dt><dd>MIT</dd></div>
+              <div><dt>tests</dt><dd>beside the database query modules and stores</dd></div>
+            </dl>
+          </div>
+          <p class="links">
+            <a href="https://github.com/simonteague6/workout-app" rel="noopener"><kbd aria-hidden="true">o</kbd>GitHub</a>
+          </p>
+        </article>
+
+        <!-- 08 agent extensions -->
+        <article class="proj" id="p-agent-extensions" data-name="agent-extensions" data-open="https://github.com/simonteague6/pi-engineering-toolkit">
+          <header class="proj-head">
+            <p class="meta"><span>08</span><span>solo</span><span>TypeScript</span><span>2026</span></p>
+            <h3>agent extensions</h3>
+            <p class="tagline">Three small plugins for the coding agents I use, pi and OpenCode.</p>
+          </header>
+          <ul class="tree">
+            <li>
+              <a href="https://github.com/simonteague6/pi-engineering-toolkit" rel="noopener">pi-engineering-toolkit</a>
+              <p>A pi package for a spec-to-review workflow: model and reasoning profiles (interrogate, implement, review, diagnose), a context-usage meter that warns at 100k and 130k tokens, <code>/handoff</code> to a fresh session, and a code-block clipboard picker.</p>
+            </li>
+            <li>
+              <a href="https://github.com/simonteague6/pi-obsidian-preview" rel="noopener">pi-obsidian-preview</a>
+              <span class="aside"><a href="https://www.npmjs.com/package/pi-obsidian-preview" rel="noopener">npm · v1.2.1</a></span>
+              <p><code>/preview</code> writes the last agent reply to an Obsidian vault and opens it there, where Mermaid, LaTeX and callouts render properly. No tests, no CI. It is a small piece of glue.</p>
+            </li>
+            <li>
+              <a href="https://github.com/simonteague6/opencode-copy-code" rel="noopener">opencode-copy-code</a>
+              <p>A <code>/copy-code</code> picker for the OpenCode V2 TUI: filter the fenced code blocks in a session, preview one, copy it byte for byte. No syntax highlighting. Only the macOS clipboard backend has been tested against a live TUI, and the README says so.</p>
+            </li>
+          </ul>
+          <dl class="facts wide">
+            <div><dt>role</dt><dd>solo, AI-assisted</dd></div>
+            <div><dt>stack</dt><dd>TypeScript</dd></div>
+          </dl>
+        </article>
+
+        <!-- 09 china-website -->
+        <article class="proj" id="p-china-website" data-name="china-website" data-open="https://china.simonteague.xyz">
+          <header class="proj-head">
+            <p class="meta"><span>09</span><span>solo</span><span>HTML · CSS · JS</span><span>2026</span></p>
+            <h3>china-website</h3>
+            <p class="tagline">An offline trip board for two weeks in China with friends.</p>
+          </header>
+          <blockquote class="pull">
+            <p>Find the friction, understand the user (in this case, me and three friends on a train), and make something that actually works.</p>
+            <footer>from the README</footer>
+          </blockquote>
+          <div class="cols">
+            <div class="prose">
+              <p>A loose inspiration board rather than an itinerary: idea cards for each city, filter pills, and the day-by-day logistics. It is a PWA with a service worker, so it works without signal, and it has no logins.</p>
+              <p>New content goes in through a small Node CLI that my AI agent drives. Vanilla HTML, CSS and JS, with no build step.</p>
+            </div>
+            <dl class="facts">
+              <div><dt>role</dt><dd>solo</dd></div>
+              <div><dt>stack</dt><dd>vanilla HTML, CSS and JS; no build step; GitHub Pages</dd></div>
+              <div><dt>status</dt><dd>live</dd></div>
+            </dl>
+          </div>
+          <p class="links">
+            <a href="https://china.simonteague.xyz" rel="noopener"><kbd aria-hidden="true">o</kbd>china.simonteague.xyz</a>
+            <a href="https://github.com/simonteague6/china-website" rel="noopener">GitHub</a>
+          </p>
+        </article>
+
+        <!-- 10 jev -->
+        <article class="proj" id="p-jev" data-name="jev" data-open="https://github.com/RowdyCreators/Jev-Scam-Detector">
+          <header class="proj-head">
+            <p class="meta"><span>10</span><span class="team">team of four</span><span>Python · TypeScript</span><span>Oct 2026</span></p>
+            <h3>Jev Scam Detector</h3>
+            <p class="tagline">A scam-awareness prototype for conversations, built at RowdyHacks XII.</p>
+          </header>
+          <div class="cols">
+            <div class="prose">
+              <p>A four-person hackathon project with Samuel Saylor, Neil Parker and Nicolas Powell. The demo captured microphone clips, transcribed the speech and sent the text for a risk assessment with evidence linked back to the transcript.</p>
+              <p>What I did: the shared scaffold that let four people work in parallel against the same interfaces, then Docker and Compose, CI, the Render deployment config, and a launcher script for the demo. Most of the first prototype was built with AI assistance.</p>
+              <p>What it is not: browser-to-browser calling did not work in the hackathon demo, nobody measured detection accuracy, and it is not production software. It is a demonstration, not a calibrated scam verdict.</p>
+            </div>
+            <dl class="facts">
+              <div><dt>role</dt><dd>one of four; scaffold, containers, CI and deploy config</dd></div>
+              <div><dt>stack</dt><dd>Python, FastAPI, React, TypeScript, Docker Compose, GitHub Actions</dd></div>
+              <div><dt>event</dt><dd>RowdyHacks XII, UTSA, October 2026</dd></div>
+            </dl>
+          </div>
+          <p class="links">
+            <a href="https://github.com/RowdyCreators/Jev-Scam-Detector" rel="noopener"><kbd aria-hidden="true">o</kbd>GitHub</a>
+          </p>
+        </article>
+
+        <div class="pager" id="pager">
+          <button type="button" id="prev"><kbd aria-hidden="true">k</kbd><span></span></button>
+          <button type="button" id="next"><span></span><kbd aria-hidden="true">j</kbd></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────────────────── about ───────────────────────── -->
+<section class="about" id="about" data-path="~/about">
+  <div class="wrap about-grid">
+    <figure class="portrait">
+      <img src="assets/simon-portrait.jpg" width="800" height="1000" loading="lazy" alt="Simon Teague, smiling, in a sage green knit polo against a pale grey background.">
+      <figcaption><span>simon-portrait.jpg</span><span>utsa · class of 2029</span></figcaption>
+    </figure>
+    <div class="about-copy">
+      <p class="eyebrow"><span class="pr" aria-hidden="true">›</span> cat about.md</p>
+      <h2>About</h2>
+      <p class="serif-lead">I'm Simon. I study computer science at the University of Texas at San Antonio, class of 2029, and I spend most of my free time making tools.</p>
+      <p>I like software that is small, finished and local: no accounts, no API keys where I can avoid them, and a key binding for everything. Most of what I make starts as something I wanted for myself or my friends, like a trip board that works on a train or a way to see which agent skills I had installed.</p>
+
+      <h3>How the work gets made</h3>
+      <p>Almost everything on this page was built with AI coding agents, and I'd rather say so than have you guess. My part is deciding what to build, writing the requirements and specs, breaking them into issues, running agents in separate git worktrees, integrating the results through pull requests and CI, and getting the thing released. I did not type every line and I won't claim I did.</p>
+
+      <h3>Rowdy Creators</h3>
+      <p>I'm a Project Advisor for web development and Python at Rowdy Creators, part of ACM at UTSA. On MiniMap I led the weekly standups and pull-request reviews, wrote 34 issues and coordinated 38 closed pull requests. This semester I lead the Virtual Record Store sessions, which teach HTTP, FastAPI basics and the branch, commit, pull request, review loop. I split its MVP into 22 beginner-sized issues. Those are authored, not completed.</p>
+      <p>I also wrote the club's <a href="https://simonteague6.github.io/rc-setup-guide/" rel="noopener">setup guide</a> and a <a href="https://simonteague6.github.io/rc-setup-guide/first-pr.html" rel="noopener">first pull request walkthrough</a> for new members.</p>
+
+      <h3>Home lab</h3>
+      <p>A repurposed HP Z640 workstation running Ubuntu in my house: 30 containers across 14 Compose projects when I last counted, in late October 2026, on a three-disk RAID 5 array. It is one machine, not a cluster, and RAID is not a backup.</p>
+
+      <h3>Toolbox</h3>
+      <dl class="toolbox">
+        <div><dt>languages</dt><dd>Python, Go, Java, JavaScript, C, Bash. TypeScript in the AI-assisted projects.</dd></div>
+        <div><dt>frameworks</dt><dd>Flask, FastAPI, NetworkX, Astro. React on one team project.</dd></div>
+        <div><dt>tools</dt><dd>Git, GitHub Actions, Docker and Compose, Linux, AWS, Cloudflare, Node.js, pnpm, Release Please, uv, just</dd></div>
+        <div><dt>daily</dt><dd>Ghostty, Neovim with gruvbox, JetBrains Mono, lazygit</dd></div>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────────────────── contact ───────────────────────── -->
+<section class="contact" id="contact" data-path="~/contact">
+  <div class="wrap">
+    <p class="eyebrow"><span class="pr" aria-hidden="true">›</span> open</p>
+    <h2>Contact</h2>
+    <p class="sec-note">I'm looking for a software engineering internship for summer 2027. There is no contact form. GitHub is where I actually am.</p>
+    <ul class="opens">
+      <li><a href="https://github.com/simonteague6" rel="noopener me"><span class="pr" aria-hidden="true">›</span><span class="o-cmd">open</span><span class="o-url">github.com/<b>simonteague6</b></span></a></li>
+      <li><a href="https://www.npmjs.com/~simonteague6" rel="noopener me"><span class="pr" aria-hidden="true">›</span><span class="o-cmd">open</span><span class="o-url">npmjs.com/<b>~simonteague6</b></span></a></li>
+    </ul>
+  </div>
+  <footer class="foot wrap">
+    <p>Static HTML, CSS and vanilla JS. No build step, no tracking, no cookies.</p>
+    <p>Built with an AI coding agent, like most of what's on it.</p>
+  </footer>
+</section>
+
+</main>
+
+<!-- status line -->
+<div class="status" id="status">
+  <span class="mode" id="mode">NORMAL</span>
+  <span class="path" id="path">~</span>
+  <span class="spacer"></span>
+  <span class="hints" aria-hidden="true"><span><kbd>j</kbd><kbd>k</kbd> projects</span><span><kbd>i</kbd> shell</span></span>
+  <button type="button" data-act="palette" aria-label="Open command palette"><kbd>/</kbd><span>jump</span></button>
+  <button type="button" data-act="help" aria-label="Show keyboard shortcuts"><kbd>?</kbd><span>keys</span></button>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<!-- command palette -->
+<dialog class="dlg palette" id="palette" aria-label="Command palette">
+  <div class="pal-in">
+    <span class="pr" aria-hidden="true">/</span>
+    <input id="pal-input" type="text" role="combobox" aria-expanded="true" aria-controls="pal-list" aria-autocomplete="list" aria-label="Search projects, sections and commands" placeholder="project, section or command" spellcheck="false" autocomplete="off" autocapitalize="off">
+    <button type="button" class="esc" data-close><kbd>esc</kbd></button>
+  </div>
+  <ul id="pal-list" role="listbox" aria-label="Results"></ul>
+  <p class="dlg-foot" aria-hidden="true"><span><kbd>↑</kbd><kbd>↓</kbd> move</span><span><kbd>enter</kbd> go</span></p>
+</dialog>
+
+<!-- keys -->
+<dialog class="dlg keys" id="keys" aria-labelledby="keys-h">
+  <div class="dlg-head"><h2 id="keys-h">Keys</h2><button type="button" class="esc" data-close><kbd>esc</kbd></button></div>
+  <div class="keys-grid">
+    <section>
+      <h3>projects</h3>
+      <dl>
+        <div><dt><kbd>j</kbd> <kbd>k</kbd></dt><dd>next, previous project</dd></div>
+        <div><dt><kbd>enter</kbd></dt><dd>read the selected project</dd></div>
+        <div><dt><kbd>o</kbd></dt><dd>open its repository or live site</dd></div>
+        <div><dt><kbd>y</kbd></dt><dd>copy its install command, if it has one</dd></div>
+      </dl>
+    </section>
+    <section>
+      <h3>moving around</h3>
+      <dl>
+        <div><dt><kbd>1</kbd> … <kbd>4</kbd></dt><dd>home, projects, about, contact</dd></div>
+        <div><dt><kbd>g</kbd> <kbd>G</kbd></dt><dd>top, bottom</dd></div>
+        <div><dt><kbd>/</kbd> or <kbd>⌘K</kbd></dt><dd>command palette</dd></div>
+        <div><dt><kbd>i</kbd></dt><dd>type in the shell at the top</dd></div>
+        <div><dt><kbd>?</kbd></dt><dd>this panel</dd></div>
+        <div><dt><kbd>esc</kbd></dt><dd>close, or leave the shell</dd></div>
+      </dl>
+    </section>
+  </div>
+  <p class="dlg-foot">Everything here also works with a mouse or a thumb. The keys are just faster.</p>
+</dialog>
+
+<script src="js/main.js" defer></script>
+</body>
+</html>

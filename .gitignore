@@ -1,0 +1,20 @@
+# Local research and planning; never publish these directories.
+.research/
+research/
+
+# Credentials and local configuration.
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# macOS, editor files, and local dependencies.
+.DS_Store
+._*
+.idea/
+.vscode/
+*.swp
+*.swo
+node_modules/
+*.log
